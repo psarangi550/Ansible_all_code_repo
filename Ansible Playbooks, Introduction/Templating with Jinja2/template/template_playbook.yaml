@@ -1,0 +1,194 @@
+---
+
+- hosts: all
+
+  vars:
+  #   files:
+  #     users: /etc/passwd
+  #     groups: /etc/group
+
+  #   fruits:
+  #     - fruit: apple
+  #       color: red
+  #     - fruit: pear
+  #       color: yellow
+  #     - fruit: grapefruit
+  #       color: yellow
+
+  #   my_tags:
+  #     Application: payment
+  #     Environment: dev
+
+    my_key:
+      Some_Key : Some_Value
+    
+    default:
+      a:
+        - default
+    patch:
+      a:
+        - patch
+
+    default1:
+      a1:
+        - default1
+        - value1
+    patch1:
+      a1:
+        - patch1
+
+    default2:
+      a:
+        x: default
+        y: default
+
+    patch2:
+      a:
+        y: patch
+        z: patch
+
+
+
+  vars_files:
+    - external_vars.yaml
+
+
+
+  # vars_prompt:
+  #   - name: galaxy_api_key
+  #     private: True
+
+  tasks:
+    # - name: Checking the Usage of If block with JINJA2 templating in Ansible Playbook
+    #   debug:
+    #     msg: Galaxy Password is ----> {{galaxy_api_key | type_debug }}
+
+    # - name: checking the dict2items without params
+    #   debug:
+    #     msg: "{{my_tags | dict2items }}"
+
+    # - name: Checking the Usage of If block with JINJA2 templating in Ansible Playbook
+    #   debug:
+    #     msg: "{{ files | dict2items(key_name='file', value_name='path') }}"
+
+    # here we will be using the items2dict filter in here 
+    # - name: Checking the Usage of items2dict
+    #   debug:
+    #     msg: "{{ fruits | items2dict(key_name='fruit', value_name='color') }}"
+    
+
+    # You can cast values as certain types. For example, if you expect the input “True” from a vars_prompt and you want Ansible to recognize it as a boolean value instead of a string:
+    # - name : Validating the input type provided by the user 
+    #   debug:
+    #     msg: Printing When its Str--->{{ galaxy_api_key }}
+    #   when: galaxy_api_key | int 
+
+    #coverting the dictionary to JSON in here 
+    # - name: Coverting the JSON Value to YAML
+    #   debug:
+    #     msg: "{{my_key | to_json }}"
+    
+    #coverting the dictionary to JSON in here 
+    # - name: Coverting the dict_to _YAML
+    #   debug:
+    #     msg: "{{my_key | to_yaml | type_debug }}"
+
+    # reading it from the YAML file 
+    # - name : checking to fetch the file from the YAML file 
+    #   debug:
+    #     msg: "{{example_key | from_yaml}}"
+
+    #convertying from YAML to JSON as in here 
+    # - name : checking to fetch the file from the YAML file and converting to JSON
+    #   debug:
+    #     msg: "{{example_key_1 | to_json}}"
+
+    # here using the command module we are reading the values from the YAML file
+
+    # - name : converting multiple YAML String to the generator and then lists
+    #   command: cat external_vars.yaml
+    #   register: file_content
+
+    # # converting all to the generator then the List object
+
+    # - name: Reading the fiull content and converting to generator then list 
+    #   debug:
+    #     msg: '{{ file_content.stdout | from_yaml_all  }}'
+
+
+    # The ansible.builtin.combine filter allows hashes to be merged. For example, the following would override keys in one hash:
+    # - name: using the combine to combine the 2 dictionary as below 
+    #   debug:
+    #     msg: "{{ {'a':1, 'b':2} | combine({'b':3}) }}"
+
+    # we can also provide multiple values to the combone as below 
+
+    # - name: using the combine with multiple combine 
+    #   debug:
+    #     msg: "{{ default | combine(patch)}}"
+
+
+    # list merge will help in keeping the merge on the first level whether ew eant to replace or keep or ppend or prepend
+
+    # - name: using the combine with multiple combine with list_merge=keep
+    #   debug:
+    #     msg: "{{ default1 | combine(patch1,list_merge='keep')}}"
+
+
+    # recursive=True will merge the nested dict inside the main dict as well 
+
+    # - name: using the combine with multiple combine with recusrsive=True
+    #   debug:
+    #     msg: "{{ default2 | combine(patch2,recursive=True)}}"
+
+    # fetching the min and max using the concept as below 
+    # - name : using the min max filter using the jinja2 filter
+    #   debug:
+    #     msg: |
+    #         {{ [1,2,3,4,5] | min }}
+    #         {{ [1,2,3,4,5] | max }}
+
+    # fetching the unique item from here
+    # - name: fetching the unique values from the duplicated list items
+    #   debug:
+    #     msg: |
+    #         {{ [1,2,3,4,5,1,2,2,3] | unique }}
+
+    # fetching the difference using the `difference fileter` over here 
+    # - name: using the difference filter using the jinja2 filter 
+    #   debug:
+    #     msg: "{{[1,2,3,4,5] | difference([1,2,3]) }}"
+
+    # picking up the random value in here as 
+    # - name: pciking up the ransom value from the list if item
+    #   debug:
+    #     msg: "{{['rod','fred','jenny'] | random }}"
+
+    # using the urlsplitter to split the URL in this case
+    # - name: pciking up the ransom value from the list if item
+    #   debug:
+    #     msg: | 
+          
+    #           "{{'https://docs.ansible.com/ansible/latest/playbook_filters.html' | urlsplit('hostname') }}"
+
+    #           "{{'https://docs.ansible.com/ansible/latest/playbook_filters.html' | urlsplit('path') }}"
+
+    #           "{{'https://docs.ansible.com/ansible/latest/playbook_filters.html' | urlsplit() | type_debug }}"
+
+
+    - name: Defining the Template Module Over Here
+      template:
+        src: template.j2
+        dest: /tmp/{{ansible_hostname}}_template.out
+        trim_blocks: True
+        mode: preserve
+          
+              
+              
+
+
+
+    
+
+
+...

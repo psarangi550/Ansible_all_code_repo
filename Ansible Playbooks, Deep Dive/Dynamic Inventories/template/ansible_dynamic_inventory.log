@@ -1,0 +1,8 @@
+2023-09-18 11:52:42,975 INFO list executed
+2023-09-18 11:52:43,005 INFO host executed for ubuntu-c
+2023-09-18 11:52:43,042 INFO host executed for centos2
+2023-09-18 11:52:43,072 INFO host executed for centos1
+2023-09-18 11:52:43,111 INFO host executed for ubuntu1
+2023-09-18 11:52:43,140 INFO host executed for centos3
+2023-09-18 11:52:43,179 INFO host executed for ubuntu2
+2023-09-18 11:52:43,218 INFO host executed for ubuntu3

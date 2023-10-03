@@ -1,0 +1,14 @@
+---
+
+- hosts: ubuntu-c
+  user: root
+
+  tasks:
+    - name: Adding the configuration file in here 
+      assemble:
+        src: conf.d
+        dest: sshd_config
+        backup: True
+        delimiter: "##################"
+
+...

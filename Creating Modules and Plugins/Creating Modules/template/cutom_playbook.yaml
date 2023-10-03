@@ -1,0 +1,14 @@
+---
+
+- hosts: linux  # targeting the linux host here 
+        
+  tasks:
+    - name: custom module executing in here
+      icmp:
+        taget: 127.0.0.1
+
+    - name: custom module executing in here 
+      icmp:
+        target: 128.0.0.1
+
+...

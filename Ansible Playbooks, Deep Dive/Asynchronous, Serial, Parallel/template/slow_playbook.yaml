@@ -1,0 +1,614 @@
+---
+
+# - hosts: linux
+
+#   tasks:
+  
+#   - name: Task1
+#     command: /bin/sleep 5
+  
+#   - name: Task2
+#     command: /bin/sleep 5
+  
+#   - name: Task3
+#     command: /bin/sleep 5
+  
+#   - name: Task4
+#     command: /bin/sleep 5
+  
+#   - name: Task5
+#     command: /bin/sleep 5
+
+# improvement:-1
+#---------------------
+
+# - hosts: linux
+  
+#   tasks:
+#   - name: Task1
+#     command: /bin/sleep 5
+#     when: ansible_hostname == "centos1"
+
+#   - name: Task2
+#     command: /bin/sleep 5
+#     when: ansible_hostname == "centos2"
+
+#   - name: Task3
+#     command: /bin/sleep 5
+#     when: ansible_hostname == "centos3"
+
+#   - name: Task4
+#     command: /bin/sleep 5
+#     when: ansible_hostname == "ubuntu1"
+
+#   - name: Task5
+#     command: /bin/sleep 5
+#     when: ansible_hostname == "ubuntu2"
+
+#   - name: Task6
+#     command: /bin/sleep 5
+#     when: ansible_hostname == "ubuntu3"
+
+
+# - hosts: linux
+            
+#   tasks:
+#     - name: Task1
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 1 # here this will check for the status of the job for every 1 seconds
+#       when: ansible_hostname == "centos1" # putting the when condition to check against a particular target host rather the all the linux target host
+
+#     - name: Task2
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 1 # here this will check for the status of the job for every 1 seconds
+#       when: ansible_hostname == "centos2" # putting the when condition to check against a particular target host rather the all the linux target host
+
+#     - name: Task3
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 1 # here this will check for the status of the job for every 1 seconds
+#       when: ansible_hostname == "centos3" # putting the when condition to check against a particular target host rather the all the linux target host
+
+#     - name: Task4
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 1 # here this will check for the status of the job for every 1 seconds
+#       when: ansible_hostname == "ubuntu1" # putting the when condition to check against a particular target host rather the all the linux target host
+
+#     - name: Task5
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 1 # here this will check for the status of the job for every 1 seconds
+#       when: ansible_hostname == "ubuntu2" # putting the when condition to check against a particular target host rather the all the linux target host
+
+#     - name: Task6
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 1 # here this will check for the status of the job for every 1 seconds
+#       when: ansible_hostname == "ubuntu3" # putting the when condition to check against a particular target host rather the all the linux target host
+
+
+# - hosts: linux
+            
+#   tasks:
+#     - name: Task1
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 0 # here this will check for the status of the job for every 1 seconds
+#       when: ansible_hostname == "centos1" # putting the when condition to check against a particular target host rather the all the linux target host
+#       register: register1
+
+#     - name: Task2
+#       command: /bin/sleep 30
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 0 # here this will check for the status of the job for every 1 seconds
+#       when: ansible_hostname == "centos2" # putting the when condition to check against a particular target host rather the all the linux target host
+#       register: register2
+
+#     - name: Task3
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 0 # here this will check for the status of the job for every 1 seconds
+#       when: ansible_hostname == "centos3" # putting the when condition to check against a particular target host rather the all the linux target host
+#       register: register3
+
+#     - name: Task4
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 0 # here this will check for the status of the job for every 1 seconds
+#       when: ansible_hostname == "ubuntu1" # putting the when condition to check against a particular target host rather the all the linux target host
+#       register: register4
+
+#     - name: Task5
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 0 # here this will check for the status of the job for every 1 seconds
+#       when: ansible_hostname == "ubuntu2" # putting the when condition to check against a particular target host rather the all the linux target host
+#       register: register5
+
+#     - name: Task6
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 0 # here this will check for the status of the job for every 1 seconds
+#       when: ansible_hostname == "ubuntu3" # putting the when condition to check against a particular target host rather the all the linux target host
+#       register: register6
+
+#     - name: showing value in Debug Mode in vars
+#       debug:
+#         var: register1 # here this register will show all the executed as well as the skipped job for the register of 1 i.e all the task output of Task1 which are passed or skipped
+
+#     - name: showing value in Debug Mode in vars
+#       debug:
+#         msg : "{{register1}}"
+
+    
+
+# - hosts: linux
+
+#   vars: # defining the variable section with emty list as the value and variable is jobid
+#     jobid: []
+#     final_res: []
+
+#   tasks:
+#     - name: Task1
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 0 # here we are making the poll value as 0 which means fire and forget and don't check for status of the task 
+#       when: ansible_hostname == "centos1" # putting the when condition to check against a particular target host rather the all the linux target host
+#       register: register1 # definingg the register 1 which will collect the executed as well as the skipped output
+
+#     - name: Task1
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 0 # here we are making the poll value as 0 which means fire and forget and don't check for status of the task 
+#       when: ansible_hostname == "centos2" # putting the when condition to check against a particular target host rather the all the linux target host
+#       register: register2 # definingg the register 1 which will collect the executed as well as the skipped output
+
+#     - name: Task1
+#       command: /bin/sleep 5 # making one of task as 30 seconds
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 0 # here we are making the poll value as 0 which means fire and forget and don't check for status of the task 
+#       when: ansible_hostname == "centos3" # putting the when condition to check against a particular target host rather the all the linux target host
+#       register: register3 # definingg the register 1 which will collect the executed as well as the skipped output
+
+#     - name: Task1
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 0 # here we are making the poll value as 0 which means fire and forget and don't check for status of the task 
+#       when: ansible_hostname == "ubuntu1" # putting the when condition to check against a particular target host rather the all the linux target host
+#       register: register4 # definingg the register 1 which will collect the executed as well as the skipped output
+
+#     - name: Task1
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 0 # here we are making the poll value as 0 which means fire and forget and don't check for status of the task 
+#       when: ansible_hostname == "ubuntu2" # putting the when condition to check against a particular target host rather the all the linux target host
+#       register: register5 # definingg the register 1 which will collect the executed as well as the skipped output
+
+#     - name: Task1
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 0 # here we are making the poll value as 0 which means fire and forget and don't check for status of the task 
+#       when: ansible_hostname == "ubuntu3" # putting the when condition to check against a particular target host rather the all the linux target host
+#       register: register6 # definingg the register 1 which will collect the executed as well as the skipped output
+
+#     - name: using setfacts module for filtering ansible_job_id
+#       set_fact: # using the set_fact module in here 
+#         jobid: > # derfining the variable name as jobid and using the multiline option in YAML
+#                 {% if item.ansible_job_id is defined -%}
+#                   {{ jobid + [item.ansible_job_id] }} 
+#                 {% else -%} 
+#                   {{ jobid }}
+#                 {% endif -%}
+#       with_items: # defining the with_items loop in here with alll the tasks register context which will be for both success and skipped taks
+#           - "{{register1}}"
+#           - "{{register2}}"
+#           - "{{register3}}"
+#           - "{{register4}}"
+#           - "{{register5}}"
+#           - "{{register6}}"
+#       register: final_result
+
+#     - name: Debugging with the vars option in here 
+#       debug: # using the debug module in here 
+#         var : final_result # here using the var hence the ut put will be as `{"jobid":[<ansible_playbook id that we got from the set_fact for each hosts>]}`
+#       # when: final_result.results.0.ansible_facts.jobid
+
+#     - name: fetching the value 
+#       set_fact:
+#         final_res: >
+#                    {% for i  in  range(final_result.results| length ) -%}
+#                       {% if final_result.results[i]['ansible_facts']['jobid']|length == 1 -%}
+#                         {{ final_result.results[i]['ansible_facts']['jobid'] }}
+#                         {% break -%}
+#                       {% endif -%}
+#                     {% endfor -%}
+                      
+
+
+#     - name: Debugging with the vars option in here 
+#       debug: # using the debug module in here 
+#         var : final_res # here using the var hence the ut put will be as `{"jobid":[<ansible_playbook id that we got from the set_fact for each hosts>]}`
+#       # when: final_result.results.0.ansible_facts.jobid
+
+#     - name: checking the Async Results in here 
+#       async_status:
+#         jid: "{{item}}"
+#       with_items:
+#         - "{{final_res}}"
+#       register: result_one
+#       until: result_one.finished
+#       retries: 30
+#       delay: 1
+
+
+
+
+
+# - hosts: linux
+
+#   vars: # defining the variable section with emty list as the value and variable is jobid
+#     jobid: []
+
+#   tasks:
+#     - name: Task1
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 0 # here we are making the poll value as 0 which means fire and forget and don't check for status of the task 
+#       #when: ansible_hostname == "centos1" # putting the when condition to check against a particular target host rather the all the linux target host
+#       register: register1 # definingg the register 1 which will collect the executed as well as the skipped output
+
+#     - name: Task1
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 0 # here we are making the poll value as 0 which means fire and forget and don't check for status of the task 
+#       # when: ansible_hostname == "centos2" # putting the when condition to check against a particular target host rather the all the linux target host
+#       register: register2 # definingg the register 1 which will collect the executed as well as the skipped output
+
+#     - name: Task1
+#       command: /bin/sleep 8 # making one of task as 30 seconds
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 0 # here we are making the poll value as 0 which means fire and forget and don't check for status of the task 
+#       # when: ansible_hostname == "centos3" # putting the when condition to check against a particular target host rather the all the linux target host
+#       register: register3 # definingg the register 1 which will collect the executed as well as the skipped output
+
+#     - name: Task1
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 0 # here we are making the poll value as 0 which means fire and forget and don't check for status of the task 
+#       # when: ansible_hostname == "ubuntu1" # putting the when condition to check against a particular target host rather the all the linux target host
+#       register: register4 # definingg the register 1 which will collect the executed as well as the skipped output
+
+#     - name: Task1
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 0 # here we are making the poll value as 0 which means fire and forget and don't check for status of the task 
+#       # when: ansible_hostname == "ubuntu2" # putting the when condition to check against a particular target host rather the all the linux target host
+#       register: register5 # definingg the register 1 which will collect the executed as well as the skipped output
+
+#     - name: Task1
+#       command: /bin/sleep 5
+#       async: 10 # here we are asking the at least  wait for 10s for executionn else the ssh timeout and ssh close connection will occure
+#       poll: 0 # here we are making the poll value as 0 which means fire and forget and don't check for status of the task 
+#       # when: ansible_hostname == "ubuntu3" # putting the when condition to check against a particular target host rather the all the linux target host
+#       register: register6 # definingg the register 1 which will collect the executed as well as the skipped output
+
+#     - name: using setfacts module for filtering ansible_job_id
+#       set_fact: # using the set_fact module in here 
+#         jobid: > 
+#                {% if item.ansible_job_id is defined -%} 
+#                 {{jobid+[item.ansible_job_id]}} 
+#                {% else -%} 
+#                 {{jobid}}
+#                {% endif %}
+#       with_items: # defining the with_items loop in here with alll the tasks register context which will be for both success and skipped taks
+#           - "{{register1}}"
+#           - "{{register2}}"
+#           - "{{register3}}"
+#           - "{{register4}}"
+#           - "{{register5}}"
+#           - "{{register6}}"
+    
+#     - name: 
+#       debug:
+#         var: jobid
+
+#     - name: Stopping the async task by using the anisble_job_id with the async_status module 
+#       async_status: # using the async status_module
+#         jid: "{{item}}" # here we are using the item which been provided with with_item
+#         mode: status # using the mode status we can get the status of the task 
+#       with_items: # using the with_items loop in here 
+#         - "{{jobid}}" # here we are checking in each host the jobid variable value and providing it as loop
+#       register: result_output # result context for the application 
+#       until: result_output.finished # untill the task got finished 
+#       retries: 30 # using the 30 retries in this case
+
+
+
+
+
+# - hosts: linux
+
+#   vars:
+#     job_val: []
+
+#   tasks:
+
+#   - command: /bin/sleep 5
+#     async: 10
+#     poll: 0
+#     when: ansible_hostname == "centos1"
+#     register: jobid01
+
+#   - debug:
+#       msg: "{{jobid01}}"
+
+#   - command: /bin/sleep 5
+#     async: 10
+#     poll: 0
+#     when: ansible_hostname == "centos2"
+#     register: jobids02
+
+#   - debug:
+#       msg: "{{jobids02}}"
+
+#   - command: /bin/sleep 5
+#     async: 10
+#     poll: 0
+#     when: ansible_hostname == "centos3"
+#     register: jobids03
+
+#   - debug:
+#       msg: "{{jobids03}}"
+
+#   - command: /bin/sleep 5
+#     async: 10
+#     poll: 0
+#     when: ansible_hostname == "ubuntu1"
+#     register: jobids04
+
+#   - debug:
+#       msg: "{{jobids04}}"
+
+#   - command: /bin/sleep 5
+#     async: 10
+#     poll: 0
+#     when: ansible_hostname == "ubuntu2"
+#     register: jobids05
+
+#   - debug:
+#       msg: "{{jobids05}}"
+
+#   - command: /bin/sleep 5
+#     async: 10
+#     poll: 0
+#     when: ansible_hostname == "ubuntu3"
+#     register: jobids06
+
+#   - debug:
+#       msg: "{{jobids06}}"
+  
+#   - set_fact:
+#       job_val: >
+#               {% if item.ansible_job_id is defined -%}
+#                 {{job_val+[item.ansible_job_id]}}
+#               {% else -%}
+#                 {{job_val}}
+#               {% endif -%}
+#     with_items:
+#       - "{{jobid01}}"
+#       - "{{jobids02}}"
+#       - "{{jobids03}}"
+#       - "{{jobids04}}"
+#       - "{{jobids05}}"
+#       - "{{jobids06}}"
+
+#   - debug:
+#       var: job_val
+
+
+# here obtaining the status of the ansible_job_id by using the async_status module
+
+# - hosts: linux
+
+#   vars:
+#     job_val: []
+
+#   tasks:
+
+#   - command: /bin/sleep 5
+#     async: 10
+#     poll: 0
+#     register: jobid01 # here we will capture the output for all the hosts and for each host we can carry the status of the successfull one
+
+
+#   - debug:
+#       msg: "{{jobid01}}"
+
+#   - set_fact:
+#       job_val: >
+#               {% if item.ansible_job_id is defined -%}
+#                 {{job_val+[item.ansible_job_id]}}
+#               {% else -%}
+#                 {{job_val}}
+#               {% endif -%}
+#     with_items:
+#       - "{{jobid01}}"
+
+#   - debug:
+#       var: job_val
+#     register: total_value
+
+#   # - debug:
+#   #     var: total_value
+
+#   - async_status:
+#       jid: "{{item}}"
+#     with_items:
+#       - "{{total_value.job_val}}"
+#     register: final_output
+#     until: final_output.finished
+#     retries: 30
+
+#   - debug:
+#       var: item
+#     with_items:
+#       - "{{job_val}}"
+
+#   - async_status:
+#       jid: "{{item}}"
+#       mode: status
+#     with_items:
+#       - "{{job_val}}"
+#     register: final_result
+#     until: final_result.finished
+#     retries: 30
+
+#   - debug:
+#       var: final_result
+
+
+# - hosts: linux
+#   serial: 2 # each taks will be perform in batch of 2 hosts in this case at a time
+
+#   tasks:
+
+#   - command: /bin/sleep 5
+#     when: ansible_hostname == "centos3" or ansible_hostname == "ubuntu1"
+#   - command: /bin/sleep 5
+#   - command: /bin/sleep 5
+#   - command: /bin/sleep 5
+#   - command: /bin/sleep 5
+#   - command: /bin/sleep 5
+
+
+# - hosts: linux
+#   serial: 
+#     - 1
+#     - 2
+#     - 3
+  
+  
+#   tasks:
+
+#   - command: /bin/sleep 5
+#   - command: /bin/sleep 5
+#   - command: /bin/sleep 5
+#   - command: /bin/sleep 5
+#   - command: /bin/sleep 5
+#   - command: /bin/sleep 5
+
+
+
+# - hosts: linux
+#   serial: 
+#     - 15%
+#     - 35%
+#     - 50%
+  
+  
+#   tasks:
+
+#   - command: /bin/sleep 5
+#   - command: /bin/sleep 5
+#   - command: /bin/sleep 5
+#   - command: /bin/sleep 5
+#   - command: /bin/sleep 5
+#   - command: /bin/sleep 5
+
+
+# free startergy in ansible to facilitate parallel programming
+
+# - hosts: linux
+#   gather_facts: False
+#   strategy: free
+  
+  
+#   tasks:
+
+#   - name: Task1
+#     command: /bin/sleep {{10 | random}}
+
+#   - name: Task2
+#     command: /bin/sleep 5 {{10 | random}}
+
+#   - name: Task3
+#     command: /bin/sleep 5 {{10 | random}}
+
+#   - name: Task4
+#     command: /bin/sleep 5 {{10 | random}}
+
+#   - name: Task5
+#     command: /bin/sleep 5 {{10 | random}}
+
+#   - name: Task6
+#     command: /bin/sleep 5 {{10 | random}}
+
+# - hosts: linux #using the linux host in here 
+#   gather_facts: False # using the gather_facts as False it will not show the fcts
+#   serial: 2 # dividing the task into the batches of 2
+
+#   tasks:
+#     - name: Task1
+#       command: /bin/sleep 1
+
+#     - name: Task2
+#       command: /bin/sleep 1
+
+#     - name: Task3
+#       command: /bin/sleep 1
+
+#     - name: Task4
+#       command: /bin/sleep 1
+
+#     - name: Task5
+#       command: /bin/sleep 1
+
+# - hosts: linux #using the linux host in here 
+#   gather_facts: False # using the gather_facts as False it will not show the fcts
+#   serial :
+#     - 1
+#     - 2
+#     - 3
+
+#   tasks:
+#     - name: Task1
+#       command: /bin/sleep 5
+
+#     - name: Task2
+#       command: /bin/sleep 5
+
+#     - name: Task3
+#       command: /bin/sleep 5
+
+#     - name: Task4
+#       command: /bin/sleep 5
+
+#     - name: Task5
+#       command: /bin/sleep 5
+
+
+- hosts: linux #using the linux host in here 
+  gather_facts: False # using the gather_facts as False it will not show the fcts
+  strategy: free # defining the free sttergy here
+
+  tasks:
+    - name: Task1
+      command: /bin/sleep 5
+
+    - name: Task2
+      command: /bin/sleep 5
+
+    - name: Task3
+      command: /bin/sleep 5
+
+    - name: Task4
+      command: /bin/sleep 5
+
+    - name: Task5
+      command: /bin/sleep 5
+
+
+# ...

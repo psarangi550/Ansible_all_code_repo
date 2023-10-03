@@ -1,0 +1,38 @@
+---
+
+# - hosts: all
+
+#   tasks:
+#     - name: here creating the proper file from jinja2 template 
+#       template:
+#         src: ./template/var_template.j2
+#         dest: /tmp/ansible_variable
+
+#   tasks:
+#     - name: fetching those saved variable using the terminal to access them 
+#       fetch:  # using the fetch module for the same 
+#         src: /tmp/ansible_variable
+#         dest: ./capture_output/{{ansible_hostname}}
+#         mode: 0644
+        
+
+- hosts: all # here usinng the all target group
+  tasks:
+    - name: fetching the template from the template folder of ansible_host and converting to the required file using the JINJA2 templating engine
+      template:  # using the template module in here 
+        src: template/var_template.j2 # defining the source templating JINJA2 template 
+        dest: /tmp/ansible_variable # using the ansible_variable to define in the destination target host file 
+
+    - name: using fetch module fetching that from the source file and provided into the dest file 
+      fetch:  # using the fetch module in here 
+        src: /tmp/ansible_variable  #fetching the value from the tyarget host defined in here 
+        dest: ./capture_vriable/{{ansible_hostname}}  # based on the hostname we  are capturing that in the control host system
+
+    - name: removing the file from the target host using the file module in here
+      file:  # using the file module in here 
+        path: /tmp/ansible_variable  # removing the file from the target hosts
+        state: absent # using the sdtate as absent to delete a file
+
+
+
+...

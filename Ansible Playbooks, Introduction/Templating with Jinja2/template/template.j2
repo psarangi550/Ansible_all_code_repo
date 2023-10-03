@@ -1,0 +1,40 @@
+--==Ansible If Block Execution==--
+
+{# checking the IF Statement Working Well Or Not in here  -#}
+{% if ansible_hostname == "ubuntu-c" -%}
+    This Is Ubuntu-C Machine
+{% endif %}
+
+
+{# checking the if and elif Statement Working Well Or Not in here  -#}
+{% if ansible_hostname == "ubuntu-c" -%}
+    This Is Ubuntu-C Machine
+{% elif ansible_hostname =="centos1" -%}
+    This is CentOS1 connected through the SSH connection
+{% endif %}
+
+{# checking the if and elif Statement Working Well Or Not in here  -#}
+{% if ansible_hostname == "ubuntu-c" -%}
+    This Is Ubuntu-C Machine
+{% elif ansible_hostname =="centos1" -%}
+    This is CentOS1 connected through the SSH connection
+{% else -%}
+    This is the Good Old {{ansible_hostname}}
+{% endif %}
+
+{# checking the is defined Statement Working Well Or Not in here  -#}
+{% if example_variable is defined -%}
+    Example Variable defined in Here
+{% else -%}
+    Example Variable not defined in Here
+{% endif %}
+
+
+{# checking the is defined Statement Working Well Or Not in here but before to that creating the variable using the `set` keyword -#}
+{% set example_variable='defined' %}
+{% if example_variable is defined -%}
+    Example Variable defined in Here
+{% else -%}
+    Example Variable not defined in Here
+{% endif %}
+

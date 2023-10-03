@@ -1,0 +1,15 @@
+#!/bin/bash
+
+source $1 > /dev/null 2>/dev/null
+
+TARGET=${target:-127.0.0.1}
+
+ping -c 1 ${TARGET} >/dev/null 2>/dev/null
+
+if [ $? == 0 ]
+then
+echo "{\"change\":true , \"rc\":0}"
+else
+echo "{ \"failed\":true , \"rc\":1, \"msg\": \"cannot ping\"}"
+fi
+

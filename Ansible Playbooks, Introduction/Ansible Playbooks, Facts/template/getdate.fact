@@ -1,0 +1,4 @@
+#! /bin/bash
+echo {\"date\":\"$(date)\"}
+
+# here we need to escape the "" symbol

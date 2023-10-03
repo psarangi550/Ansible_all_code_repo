@@ -1,0 +1,14 @@
+---
+
+- hosts: all
+
+  tasks: 
+  - name: checking all the groups available in the groups
+    debug:
+      var: groups.linux
+
+
+
+
+
+...

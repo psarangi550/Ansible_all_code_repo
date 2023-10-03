@@ -1,0 +1,17 @@
+---
+
+- hosts: ubuntu3,centos3
+
+  tasks:
+    - name : Pausing for 1 Sec
+      pause:
+        prompt: Please Enter to Continue or (ctrl+c) To abort
+        # prompt: pass
+    
+    # - name: Debugger Task 
+    #   debug:
+    #     msg: Waited for 1 minute
+
+
+
+...

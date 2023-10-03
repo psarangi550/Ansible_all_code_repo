@@ -1,0 +1,582 @@
+ok: [ubuntu1] => {
+    "final_result": {
+        "changed": false,
+        "msg": "All items completed",
+        "results": [
+            {
+                "ansible_facts": {
+                    "jobid": []
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": []
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": []
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "168954272767.6270"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "ansible_job_id": "168954272767.6270",
+                    "changed": true,
+                    "failed": 0,
+                    "finished": 0,
+                    "results_file": "/root/.ansible_async/168954272767.6270",
+                    "started": 1
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "168954272767.6270"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "168954272767.6270"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            }
+        ],
+        "skipped": false
+    }
+}
+ok: [ubuntu2] => {
+    "final_result": {
+        "changed": false,
+        "msg": "All items completed",
+        "results": [
+            {
+                "ansible_facts": {
+                    "jobid": []
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": []
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": []
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": []
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "519649003268.5784"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "ansible_job_id": "519649003268.5784",
+                    "changed": true,
+                    "failed": 0,
+                    "finished": 0,
+                    "results_file": "/root/.ansible_async/519649003268.5784",
+                    "started": 1
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "519649003268.5784"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            }
+        ],
+        "skipped": false
+    }
+}
+ok: [ubuntu3] => {
+    "final_result": {
+        "changed": false,
+        "msg": "All items completed",
+        "results": [
+            {
+                "ansible_facts": {
+                    "jobid": []
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": []
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": []
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": []
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": []
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "590024015003.5793"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "ansible_job_id": "590024015003.5793",
+                    "changed": true,
+                    "failed": 0,
+                    "finished": 0,
+                    "results_file": "/root/.ansible_async/590024015003.5793",
+                    "started": 1
+                }
+            }
+        ],
+        "skipped": false
+    }
+}
+ok: [centos1] => {
+    "final_result": {
+        "changed": false,
+        "msg": "All items completed",
+        "results": [
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "542334148236.4621"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "ansible_job_id": "542334148236.4621",
+                    "changed": true,
+                    "failed": 0,
+                    "finished": 0,
+                    "results_file": "/root/.ansible_async/542334148236.4621",
+                    "started": 1
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "542334148236.4621"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "542334148236.4621"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "542334148236.4621"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "542334148236.4621"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "542334148236.4621"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            }
+        ],
+        "skipped": false
+    }
+}
+ok: [centos2] => {
+    "final_result": {
+        "changed": false,
+        "msg": "All items completed",
+        "results": [
+            {
+                "ansible_facts": {
+                    "jobid": []
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "251661143656.4620"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "ansible_job_id": "251661143656.4620",
+                    "changed": true,
+                    "failed": 0,
+                    "finished": 0,
+                    "results_file": "/root/.ansible_async/251661143656.4620",
+                    "started": 1
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "251661143656.4620"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "251661143656.4620"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "251661143656.4620"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "251661143656.4620"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            }
+        ],
+        "skipped": false
+    }
+}
+ok: [centos3] => {
+    "final_result": {
+        "changed": false,
+        "msg": "All items completed",
+        "results": [
+            {
+                "ansible_facts": {
+                    "jobid": []
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": []
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "140466760946.4589"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "ansible_job_id": "140466760946.4589",
+                    "changed": true,
+                    "failed": 0,
+                    "finished": 0,
+                    "results_file": "/root/.ansible_async/140466760946.4589",
+                    "started": 1
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "140466760946.4589"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "140466760946.4589"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            },
+            {
+                "ansible_facts": {
+                    "jobid": [
+                        "140466760946.4589"
+                    ]
+                },
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "item": {
+                    "changed": false,
+                    "skip_reason": "Conditional result was False",
+                    "skipped": true
+                }
+            }
+        ],
+        "skipped": false
+    }
+}

@@ -1,0 +1,16 @@
+---
+
+- hosts: linux
+
+  tasks:
+    - name: Play1 Task1
+      debug:
+        msg: Play1, Task1
+
+    # - include_tasks: included_playbook.yaml
+    - import_tasks: imported_playbook.yaml
+      when: imported_value is not defined
+      # when: included_value is not defined
+
+
+...

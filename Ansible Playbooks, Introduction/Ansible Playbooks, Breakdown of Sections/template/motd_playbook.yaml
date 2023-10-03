@@ -1,0 +1,35 @@
+---
+# YAML documents begin with the document separator ---
+
+- hosts:
+    - centos1
+    - centos2
+    - centos3
+    - ubuntu1
+    - ubuntu2
+    - ubuntu3
+
+  vars:
+    motd_centos: "welcome asshole read everyday to be better DevOps Knownledge\n"
+    motd_ubuntu: "Welcome assole read everyday on december we need to swtch\n"
+
+  tasks:
+    - name: Execuing In Centos
+      copy:
+        content: "{{motd_centos}}"
+        dest: /etc/motd
+      notify: Debug Handler
+      when: ansible_distribution== "CentOS"
+
+    - name: Execuing In Ubuntu
+      copy:
+        content: "{{motd_ubuntu}}"
+        dest: /etc/motd
+      notify: Debug Handler
+      when: ansible_distribution== "Ubuntu"
+
+  handlers:
+    - name: Debug Handler
+      debug:
+        msg: the MOTD being changed
+# Three dots indicate the end of a YAML document

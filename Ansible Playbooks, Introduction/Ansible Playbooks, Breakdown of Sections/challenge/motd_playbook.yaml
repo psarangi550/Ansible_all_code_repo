@@ -1,0 +1,22 @@
+---
+- hosts: ubuntu
+  user: root
+  become: True
+  gather_facts: True
+
+  vars:
+    motd_cmd: hostname
+
+  tasks:
+    - name: My Task
+      command:
+        cmd: "{{motd_cmd}}"
+      notify: My Handler
+      when: ansible_distribution_file_variety == "Debian"
+
+  handlers:
+    - name: My Handler
+      debug:
+        msg: the commad {{motd_cmd}} Got Executed
+
+...

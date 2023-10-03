@@ -1,0 +1,12 @@
+---
+
+
+- import_playbook: imported_whole_playbook.yaml
+  when: imported_value is not defined
+
+
+
+
+
+
+...

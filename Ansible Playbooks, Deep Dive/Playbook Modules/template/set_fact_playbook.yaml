@@ -1,0 +1,47 @@
+---
+
+- hosts: centos3,ubuntu3
+
+  tasks:
+    # - name: Setting Up the Facts
+    #   set_fact: # using the set_fact module in here where we can define single or multiple facts
+    #     our_fact: Ansible Rocks..!
+    #     ansible_distribution: "{{ansible_distribution| upper}}" # here we are overriding the default ansible fact ansible_distribution to uppercase using upper filter
+    
+    # - name: Accessing the Facts01
+    #   debug:
+    #     msg: "{{our_fact}}"
+
+    # - name: Accessing the Facts02
+    #   debug:
+    #     msg: "{{ansible_distribution}}"
+
+    - name: Setting Up Facts in Here for CentOS
+      set_fact: # using the  set_fact module
+          webserver_port : 80
+          webserver_location: /usr/share/nginx/html
+          webserver_user: root
+          ansible_custom_distribution: "{{ansible_distribution | upper}}"
+          cacheable: True
+      when: ansible_distribution == "CentOS" # here defining the custom variable facts for the CentOS distribution
+
+    - name: Setting Up Facts in Here for Ubuntu
+      set_fact: #using the set_facts module in here 0
+          webserver_port : 80
+          webserver_location: /var/www/html
+          webserver_user: root
+          ansible_custom_distribution: "{{ansible_distribution | upper}}"
+          cacheable: True
+      when: ansible_distribution == "Ubuntu" # here defining the custom variable facts for the Ubuntu distribution
+
+    - name: Accesssing the custom define fact variable # here we are accessing the common variable in this case over here
+      debug: #using the debug module in here 
+          msg: { webserver_port : "{{webserver_port}}" , webserver_location : "{{webserver_location}}" , webserver_user: "{{webserver_user}}" }
+          # using the message atribut to access the common define properties
+
+    - name : Accessing the Ansible Custom Distribution here 
+      debug:
+        msg: "{{ansible_custom_distribution}}"
+
+
+...

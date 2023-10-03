@@ -1,0 +1,173 @@
+# Every YAML file should start with three dashes
+---
+
+# single_line_as_multi_line_str: >
+#                         this is a string
+#                         that goes over
+#                         multiple lines
+#                         but consider as one line
+
+
+# single_line_as_multi_line_str: >-
+#                         this is a string
+#                         that goes over
+#                         multiple lines
+#                         but consider as one line
+
+# example_interget_key: 1
+
+# is_false_01: false
+# is_false_02: False
+# is_false_03: FALSE
+# is_false_04: no
+# is_false_05: No
+# is_false_06: NO
+# is_false_07: off
+# is_false_08: Off
+# is_false_09: OFF
+# is_false_10: n
+# is_true_01: true
+# is_true_02: True
+# is_true_03: TRUE
+# is_true_04: yes
+# is_true_05: Yes
+# is_true_06: YES
+# is_true_07: on
+# is_true_08: On
+# is_true_09: ON
+# is_true_10: y
+
+# - item1
+# - item2
+# - item3
+# - item4
+
+# example_key_1: example_value1
+# example_key_2: example_value2
+
+# {example_key_1: example_value_1 , example_key_2: example_value_2 }
+
+# [example_list1,example_list2] 
+
+# dict_key_1: {example_key_1: example_value_1}
+# dict_key_2: {example_key_2: example_value_2}
+
+# 'dict_key_1': {'example_key_1': 'example_value_1'}
+# 'dict_key_2': {'example_key_2': 'example_value_2'}
+
+# example_1:
+#             - item1
+#             - item2
+#             - item3
+
+# example_2:
+#             - item4
+#             - item5
+#             - item6
+
+
+# mentioning the dict of dict in this way 
+
+# approach -1
+# dict_key01: {example_3_key: example_1_value , example_4_key: example_2_value}
+#or
+# approach:2
+# 'dict_key02': {'example_1_key':'example_1_value','example_2_key':'example_2_value'}
+#or
+#approach:-3
+# dict_key01: #recomended approach
+#   example_1_key: example_1_value
+#   example_2_key: example_2_value
+
+
+
+# displaying only dict in here
+
+# {example_1_key: example_1_value , example_2_key: example_2_value}
+#or
+# example_3_key: example_3_value # recomended
+# example_4_key: example_4_value # recomended
+#or 
+# {'example_5_key':'example_5_value','example_6_key':'example_6_value'}
+
+# we can also define the python equivalent of the list as well 
+# [item1,item2,item3,item4] # this is the inline block w3hich is not recomended 
+# or we can specify as below 
+# - item1 # this is recomended 
+# - item2
+# - item3
+# - item4
+
+# dict_key_0:
+#   example_key_1: example_value_1
+
+# dict_key1:
+#   - example_value2
+
+# this also applies for the inline item \
+# here this is an issue
+# {example_1_key: example_1_value , example_2_key: example_2_value}
+# [example_4_list]
+
+dict_key_1:
+  example_key_1:
+    - 1
+    - 2
+    - 3
+
+dict_key_2:
+  example_key_2:
+    - 4
+    - 5
+    - 6
+
+dict_key_3:
+  example_key_3:
+    - 7
+    - 8
+    - 9
+
+# using an complex example over here
+
+# dict_key_1:
+#   - example_key_1:
+#     - 1
+#     - 2
+#     - 3
+
+# dict_key_2:
+#   - example_key_2:
+#     - 4
+#     - 5
+#     - 6
+
+# dict_key_3:
+#   - example_key_3:
+#     - 7
+#     - 8
+#     - 9
+
+#{'dict_key_1':[{'example_key_1':[1,2,3]}],'dict_key_2':[{'example_key_2':[4,5,6]}],'dict_key_3':[{'example_key_3':[7,8,9]}]}
+
+
+# using an complex example over here
+
+# dict_key_1:
+#   - example_key_1: #separate dict key
+#     - 1 #dict value
+#     - 2 #dict value
+#     - 3 #dict value
+#   - example_key_2: #separate dict key
+#     - 4 #dict value
+#     - 5 #dict value
+#     - 6 #dict value
+#   - example_key_3: #separate dict key
+#     - 7 #dict value
+#     - 8 #dict value
+#     - 9 #dict value
+
+# here the output will be as 
+#{'dict_key_1':[{'example_key_1':[1,2,3]},{'example_key_2':[4,5,6]},{'example_key_3':[7,8,9]}]}
+
+# Every YAML file should end with three dots
+...

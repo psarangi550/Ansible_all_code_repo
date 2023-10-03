@@ -1,0 +1,14 @@
+---
+
+- hosts: centos1
+
+  tasks:
+    - name: Setting Up the Facts in here 
+      set_fact:
+        imported_value: foo   # defining the variable value in here
+    
+    - name: Play1 Task1 
+      debug:
+        msg: Play1 Task1
+
+...

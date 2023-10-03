@@ -1,0 +1,96 @@
+---
+
+- hosts: linux
+
+  vars_files:
+    - ./vars/logos.yaml
+
+  # tasks:
+  #   - name : Install Epel
+  #     yum:
+  #       name: epel-release
+  #       # update_only: True
+  #       update_cache: yes
+  #       state: latest
+  #     when: ansible_distribution=="CentOS"
+  #     notify: installing the packages
+
+  # handlers:
+  #   - name : installing the packages
+  #     debug:
+  #       msg: changes been made on centos
+
+
+  # tasks:
+  #   - name: Install Nginx CentOS
+  #     yum:
+  #       name: nginx
+  #       update_cache: True
+  #       state: latest
+  #     when: ansible_distribution=="CentOS"
+  #     notify: installing the packages
+
+  #   - name: Install Nginx Ubuntu
+  #     apt:
+  #       name: nginx
+  #       update_cache: true
+  #       state: latest
+  #     when: ansible_distribution=="Ubuntu"
+  #     notify: installing the packages
+
+  # handlers:
+  # - name : installing the packages
+  #   debug:
+  #     msg: changes been made on {{ansible_hostname}} Linux System
+
+
+  # tasks:
+  #   - name : Install Nginx
+  #     package:
+  #       name: nginx
+  #       state: latest
+
+
+  # tasks:
+  #   - name : Restart Nginx
+  #     service:
+  #       name: nginx
+  #       state: restarted
+  #       enabled: True
+
+  # tasks:
+  #   - name : Stop Nginx
+  #     service:
+  #       name: nginx
+  #       state: stopped
+
+  #   - name : Start Nginx
+  #     service:
+  #       name: nginx
+  #       state: started
+
+  tasks:
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
+      notify: check HTTP Service
+
+    - name: Template index.hrml-base.j2 to index.grml on target
+      template:
+        src: ./templates/index.html-logos.j2
+        dest: "{{hostvars[ansible_hostname].nginx_root_location}}/index.html"
+        trim_blocks: True
+        mode: 0644
+    
+
+  handlers:
+    - name : check HTTP Service
+      uri:
+        url: http://{{ansible_default_ipv4.address}}
+        status_code:
+          - 200 # here we are validating the status_code returned is of 200 if we mentioned any other status ocde we will get an error
+
+    
+      
+...

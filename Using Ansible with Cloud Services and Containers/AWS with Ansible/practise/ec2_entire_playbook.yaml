@@ -1,0 +1,128 @@
+---
+
+- hosts: localhost
+  connection: local
+  gather_facts: False
+
+  tasks:
+    - name: creating EC2 Security group in here 
+      ec2_group:
+        name: ansible
+        description: creating an ansible security group in here
+        region: us-east-1
+        rules:
+          - proto: tcp
+            from_port: 80
+            to_port: 80
+            cidr_ip: 0.0.0.0/0
+          
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            cidr_ip: 0.0.0.0/0
+
+    - name: Provision a set of instances
+      amazon.aws.ec2_instance:
+        key_name: ansible
+        security_group: ansible
+        instance_type: t2.micro
+        image_id: ami-026ebd4cfe2c043b2
+        region: us-east-1
+        wait: true
+        exact_count: 20
+        state: present
+        tags:
+         instance_tags: Ansible
+         count_tags: AnsibleNginxWebservers
+      register: ec2
+
+    - name: adding the hosts as per this 
+      add_host:
+        name: "{{item.public_ip_address}}"
+        groups:
+          - ansibleusers
+      with_items:
+        - "{{ec2.instances}}"
+
+    - name: Showing all the groups in here 
+      debug:
+        var: groups.ansibleusers
+
+    - name: reloading the dynamic inventory
+      meta: refresh_inventory
+
+- hosts: ansibleusers
+  user: ec2-user
+  become: true
+
+  tasks:
+    - name: checking the ping module 
+      ping:
+
+  roles:
+    - nginx
+    - {role: webapp, taget_dir: /usr/share/nginx/html }
+
+
+
+- hosts: ansibleusers
+  user: ec2-user
+
+  tasks:
+    - name: removing the instances from the security group
+      amazon.aws.ec2_instance:
+        key_name: ansible
+        security_group: ""
+        instance_ids:
+          - "{{ec2_id}}"
+        region: "{{ec2_region}}"
+        wait: true
+  
+      delegate_to: localhost
+      
+    - name: removing the EC2 instances
+      amazon.aws.ec2_instance:
+        key_name: ansible
+        instance_ids:
+          - "{{ec2_id}}"
+        region: "{{ec2_region}}"
+        state: absent
+        wait: true
+      delegate_to: localhost
+
+    - name: removing the secuity group
+      amazon.aws.ec2_group:
+        name: ansible
+        state: absent
+        region: us-east-1
+      delegate_to: localhost
+        
+      
+# - hosts: localhost
+#   connection: local
+#   gather_facts: False
+  
+  # tasks:
+  #   - name: removing the EC2 instance
+  #     amazon.aws.ec2_instance:
+  #         key_name: ansible
+  #         region: us-east-1
+  #         state: absent
+
+  
+
+# - hosts: localhost
+#   connection: local
+#   gather_facts: False
+
+#   tasks:
+#     - name: removing the secuity group
+#       amazon.aws.ec2_group:
+#         name: ansible
+#         state: absent
+#         region: us-east-1
+
+
+
+
+...

@@ -1,0 +1,83 @@
+---
+
+# - hosts: linux
+
+
+- hosts: linux
+  # tags: webapp
+
+  vars_files:
+    - ./vars/logos.yaml
+
+  tasks:
+    - name: Install EPEL
+      yum:
+        name: epel-release
+        update_cache: true
+        state: latest
+      when: ansible_distribution == "CentOS"
+      tags:
+        - install-epel
+
+    - name: Install Nginx
+      package:
+        name: nginx
+        state: latest
+      tags:
+        - install-nginx
+
+    - name: Restart Nginx Service
+      service:
+        name: nginx
+        state: restarted
+      tags:
+        - restart-nginx
+      notify: check HTTP Service
+
+    - name: Publishing the template to the required directory
+      template:
+        src: ./templates/index.html-easter_egg.j2
+        dest: "{{hostvars[ansible_hostname].nginx_root_loc}}/index.html"
+        mode: 0644
+      tags:
+        - deploy-app
+
+    - name: Install Unzip
+      package:
+        name: unzip
+        state: latest
+      tags: always
+
+    - name: unzipping the playbook stacker into the nginx location
+      unarchive:
+        src: ./files/playbook_stacker.zip
+        dest: "{{nginx_root_loc}}"
+      tags:
+        - deploy-app
+
+  handlers:
+    - name: check HTTP Service
+      uri:
+        url: "http://{{ansible_default_ipv4.address}}"
+        status_code:
+          - 200
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+...

@@ -1,0 +1,7 @@
+---
+
+ansible_user: root
+nginx_root_loc: /usr/share/nginx/html
+
+
+...

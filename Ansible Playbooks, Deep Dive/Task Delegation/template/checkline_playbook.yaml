@@ -1,0 +1,20 @@
+---
+
+
+- hosts:  ubuntu-c
+  become: yes
+
+  tasks:
+  - lineinfile:
+      path: hello.txt
+      owner: ansible
+      regexp: ^j.*t$
+      state: absent
+      line: javascript need to learn
+      insertafter: javascript
+
+
+
+
+
+...

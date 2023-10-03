@@ -1,0 +1,32 @@
+---
+
+- hosts: centos1
+
+  tasks:
+  - name: "loop through list"
+    ansible.builtin.debug:
+      msg: "An item: {{ item }}"
+    with_sorted_items:
+        - 3
+        - 2
+        - 1
+        - Z
+        - A
+        - M
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+...

@@ -1,0 +1,13 @@
+---
+
+
+- hosts: centos # here we are targeting the centos host in here 
+
+  tasks: 
+    - name : using the fetch playbook in here as below 
+      fetch: # using the fetch module
+        src: /etc/redhat-release
+        dest: /tmp/redhat-release
+        fail_on_missing: true # check file present on the remte server and readable
+
+...

@@ -1,0 +1,17 @@
+---
+- hosts: ubuntu
+
+  tasks:
+    - name: Dynamic MoTD
+      copy:
+        src: 60-ansible-motd
+        dest: /etc/update-motd.d/60-ansible-motd
+        mode: preserve
+      notify: debug_handler
+
+  handlers:
+    - name: debug_handler
+      debug:
+        msg: Dynamic MOTD Being Set
+
+...

@@ -1,0 +1,630 @@
+---
+
+# - hosts: linux
+
+  # tasks:
+
+  #   - name: Deciding the Name based on the set_fact and ansible_distribution on CentOS
+  #     set_fact:
+  #       msg_content: Hello Asshole Read Ansible everyDay And Start Kubernetes on CentOS
+  #     register: msg_output
+
+  #   - name: Installing the motd on CentOS
+  #     copy:
+  #       content: "{{ msg_content }}"
+  #       dest: /etc/motd
+  #     notify: Check Debug Message
+  #     when: ansible_distribution == "CentOS"
+
+  #   - name: Deciding the Name based on the set_fact and ansible_distribution on Ubuntu
+  #     set_fact:
+  #       msg_content: Hello Asshole Read Ansible everyDay And Start Kubernetes on Ubuntu
+  #     register: msg_output
+    
+  #   - name: Installing the motd on Ubuntu
+  #     copy:
+  #       content: "{{msg_content}}"
+  #       dest: /etc/motd
+  #     notify: Check Debug Message
+  #     when: ansible_distribution == "Ubuntu"
+
+  # handlers:
+  #   - name : Check Debug Message
+  #     debug:
+  #       var: msg_output
+
+  #case1:
+
+  # vars:
+  #   motd_centos: "Welcome to CentOS Linux- Anible Rocks...."
+  #   motd_ubutntu: "Welcome to Ubuntu Linux- Anible Rocks...."
+
+  # tasks:
+  #   - name: Preveious Motd Code as below for centOS
+  #     copy:
+  #       content: "{{motd_centos}}"
+  #       dest: /etc/motd
+  #       mode: 0644
+  #     when: ansible_distribution == "CentOS"
+  #     notify: Check Output
+
+  #   - name: Preveious Motd Code as below for Ubuntu
+  #     copy:
+  #       content: "{{motd_ubutntu}}"
+  #       dest: /etc/motd
+  #       mode: 0644
+  #     when: ansible_distribution == "Ubuntu"
+  #     notify: Check Output
+
+  # handlers:
+  #   - name: Check Output
+  #     debug:
+  #       msg: motd changed
+
+
+  # case2
+  # tasks:
+  
+  # tasks:
+  #   - name: Revamping the existing code as below for CentOS
+  #     copy:
+  #       content: Welcome to {{ansible_distribution}} Linux - Ansible Rocks..!
+  #       dest: /etc/motd
+  #     when: ansible_distribution == "CentOS"
+  #     notify: Check Output
+
+  #   - name: Revamping the existing code as below for Ubuntu
+  #     copy:
+  #       content: Welcome to {{ansible_distribution}} Linux - Ansible Rocks..!
+  #       dest: /etc/motd
+  #     when: ansible_distribution == "Ubuntu"
+  #     notify: Check Output
+
+  # handlers:
+  #   - name: Check Output
+  #     debug:
+  #       msg: motd changed
+
+  #case03: enhancing with the help of loops in here 
+
+  # tasks:
+  #   - name: using the loops in here with the options as with_item
+  #     copy: # using the copy module in here 
+  #       content: Welcome to {{item}} Linux. Ansible Rocks...!
+  #       dest: /etc/motd
+  #       mode: 0644
+  #     with_items: 
+  #       - CentOS
+  #       - Ubuntu
+  #     notify: Check Output
+  #     when: ansible_distribution == item
+
+  # handlers:
+  #   - name: Check Output
+  #     debug:
+  #       msg: motd changed
+
+  # tasks:
+
+  #   - name: checking the password
+  #     package:
+  #       name: passwd
+  #       state: present
+  #   - name: creating an User and Setting the password
+  #     user:
+  #       name: prat
+  #       state: present
+  #       password_lock: false
+  #       # password: $6$rounds=656000$mysecretsalt$nlTKN4kGgAdiPs9089ZQGy5nwTb8L3E0OSEu0LIpxhYOOlauF6ro2uOicJA22QaJxRYlM49p7Dbrp19tI.GWq0
+
+
+  # tasks:
+  #   - name: Using the with_dict looping over here 01
+  #     debug:
+  #       msg: "{{item.key}}"
+  #     with_dict:
+  #       pratik:
+  #         full_name: pratik K Sarangi
+  #       puja:
+  #         full_name: Prateekhya Sarangi
+
+  #   - name: Using the with_dict looping over here 02
+  #     debug:
+  #       msg: "{{item.value.full_name}}"
+  #     with_dict:
+  #       pratik:
+  #         full_name: pratik K Sarangi
+  #       puja:
+  #         full_name: Prateekhya Sarangi
+
+# - hosts: linux
+
+#   vars:
+#     my_var:
+#       - 
+#         - surname: Spurin
+#           members:
+#             - james
+#             - hayley
+#             - lily
+#             - anwen
+#         - surname: Darlington
+#           members:
+#             - freya
+#         - surname: Jalba
+#           members:
+#             - ana
+#         - surname: Angne
+#           members:
+#             - abhishek
+#         - surname: Mahmood
+#           members:
+#             - sara
+
+  # vars:
+  #   my_var: 
+  #     - family:
+  #         - members:
+  #             - pratik 
+  #             - puja
+  #           surname: sarangi
+          
+  #         - members:
+  #             - papali
+  #             - pupuli
+  #           surname: kar
+
+  # vars:
+  #   my_var:
+  #     - 
+  #       - surname: sarangi
+  #         member:
+  #           - pratik
+  #           - puja
+  #       - surname: kar
+  #         member:
+  #           - papali
+  #           - pupuli
+
+# msg:{[{"family":]}
+
+  # "msg":[{"family":[{"surname":"sarangi","members":["pratik","puja"]},{"surname":"kar","member":["papali","pupuli"]}]}]
+
+  # vars:
+  #   my_var: 
+  #     - 
+  #       - surname: sarangi
+  #         members:
+  #           - pratik 
+  #           - puja
+
+  #       - surname: kar
+  #         member:
+  #           - papali
+  #           - pupuli
+
+
+# my_var-----> [
+#               {
+#                 family: [{surname:sarangi,member:["pratik","puja"]}], [{surname:kar,member:["papali","pupuli"]}]  
+#               }
+#              ]
+
+# my_var----->[[{"surname":"sarangi","member":["pratik","puja"]}],[{"surname":"kar","member":["papali","pupuli"]}]]
+
+
+  # tasks:
+  #   - name: using the with_subelement01
+  #     debug:
+  #       msg: "{{item.1}}"
+  #     with_subelements:
+  #       - family: # this should be list , the first item of the list i.e family_name can be a dictionary of dictionary or list of dictionary 
+  #           surname: sarangi
+  #           members:
+  #             - pratik
+  #             - puja
+  #       - members
+    
+    # - name: using the with_subelement02
+    #   debug:
+    #     msg: "{{item.1}}--->{{item.0.surname}}"
+    #   with_subelements:
+    #     - family:
+    #         surname: sarangi
+    #         members:
+    #           - pratik
+    #           - puja
+    #     - members
+
+    # - name: using the with_subelement02
+    #   debug:
+    #     msg: "{{item.1}}------>{{item.0.surname}}"
+    #   with_subelements:
+        
+        
+    #     -  # this expected to be the list and the first item in here is a list of dictionary 
+    #         - surname: sarangi
+    #           members:
+    #             - pratik
+    #             - puja
+    #     - members
+
+
+# [[{"surname":"Spurin","members":["James","Hayley","Lily","Anwen"]}][{"surname":"Darlington","members":["Freya"]}][{"surname":"Jalba","members":["Ana"]}][{"surname":"Angne","members":["Abhishek"]}][{"surname":"Mahmood","members":["Sara"]}]]
+        
+
+    # - name: checking vars value
+    #   debug: 
+    #     msg: "{{my_var}}"
+
+    # - name: checking the wiht_subelements
+    #   debug:
+    #     msg: "{{item}}"
+    #   # with_subelements:
+    #   #   - family:
+    #   #       surname: sarangi
+    #   #       member:
+    #   #         - pratik
+    #   #         - puja
+    #   #   - member 
+
+    #   with_subelements:
+    #     - 
+    #       - surname: sarangi
+    #         member:
+    #           - pratik
+    #           - puja
+    #       - surname: kar
+    #         member:
+    #           - papali
+    #           - pupuli
+    #     - member 
+
+
+# {"msg":[{"family":{"surname":"sarangi","member":["pratik","puja"]}}]}
+# msg[0]={"family":{"surname":"sarangi","member":["pratik","puja"]}}
+
+# {"msg":[[{"surname":"pratik","member":["pratik","puja"]},{"surname":"kar","member":["papali","pupuli"]}]]}
+# msg[0]=[{"surname":"pratik","member":["pratik","puja"]},{"surname":"kar","member":["papali","pupuli"]}]
+
+# - hosts: centos1
+#   vars:
+#     motd_value: "{{ lookup('password','mypass length=15 chars=ascii_letters,digits,hexdigits,punctuation') | password_hash('sha512')}}"
+#   tasks:
+#   - debug:
+#       msg: "motd value is {{ motd_value}}"
+
+
+# - hosts: linux
+
+#   vars:
+#     mypassword: pratik123
+
+#   tasks:
+
+#   - set_fact:
+#       my_pass: "{{ mypassword | password_hash('sha512','mysecretsalt')}}"
+
+#   - user:
+#       name: "{{item.1}}"
+#       comment: "{{item.1}} {{item.0.surname}}"
+#       password : "{{my_pass}}"
+#       state: present
+#     register: password_resullt
+#     with_subelements:
+#       - 
+#         - surname: sarangi
+#           members:
+#             - prateik
+#             - pooja
+
+#         - surname: kar
+#           members:
+#             - papali
+#             - pupuli
+      
+#       - members
+
+#   - debug:
+#       msg: "{{my_pass}}"
+
+
+# - hosts: linux
+
+#   tasks:
+  
+#   - file:
+#       path: /home/{{item.0}}/{{item.1}}
+#       owner: "{{item.0}}"
+#       group: "{{item.0}}"
+#       state: directory
+#     with_nested:
+#       - ["pratik","pooja","papali","pupuli"]
+#       - ["docs","ppt","CICD"]
+
+# - hosts: linux
+
+#   tasks:
+
+#   - file:
+#       path: /tmp/{{item.0}}/{{item.1}}
+#       # owner: "{{item.0}}"
+#       # group: "{{item.0}}"
+#       state: directory
+
+#     with_together:
+#       - ["james"]
+#       - ["paul","ridge"]
+
+# - hosts: linux
+
+  # tasks:
+  # - authorized_key:
+  #     user: pratik
+  #     key: "{{item}}"
+  #   with_file:
+  #     - /home/ansible/.ssh/id_rsa.pub
+
+# - hosts: linux
+
+#   tasks:
+#   - debug:
+#       msg: "{{item.0}}"
+#     with_file:
+#       - /home/ansible/.ssh/id_rsa.pub
+    
+# - hosts: linux
+
+#   tasks:
+#   - set_fact:
+#       pub_val: "{{item}}"
+#     with_file:
+#       - /home/ansible/.ssh/id_rsa.pub
+    
+#   - authorized_key:
+#       user: "{{item.1}}"
+#       key: "{{pub_val}}"
+#     with_subelements:
+#       - family:
+#           surname: kar
+#           members:
+#             - papali
+#             - pupuli
+#       - members
+
+# - hosts: linux
+
+#   tasks:
+#   - authorized_key:
+#       user: prateik
+#       key: "{{item}}"
+#     with_file:
+#       - /home/ansible/.ssh/id_rsa.pub
+#       - ./custom_key.pub
+  
+# - hosts: linux
+
+#   vars:
+#     mypass: pratik123
+
+  # tasks:
+  # - user:
+  #     name: "{{item}}"
+  #     password: "{{mypass | password_hash('sha512')}}"
+  #     comment: hayley spurin 
+  #   with_items:
+  #     - lily
+  #     - anwen
+
+  # - set_fact:
+  #     file_content1: "{{item}}"
+  #   with_file:
+  #     - /home/ansible/.ssh/id_rsa.pub
+
+  # - set_fact:
+  #     file_content2: "{{item}}"
+  #   with_file:
+  #     - ./custom_key.pub
+
+  # - authorized_key:
+  #     user: "{{item.1}}"
+  #     key: "{{item.0.file_content}}"
+  #   with_subelements:
+  #     - 
+  #       - file_content: "{{file_content1}}"
+  #         user:
+  #           - lily
+  #           - anwen 
+  #       - file_content: "{{file_content2}}"
+  #         user:
+  #           - lily
+  #           - anwen 
+  #     - user  
+
+
+# revesion
+
+# - hosts: linux 
+
+#   tasks:
+#   - copy:
+#       content: Welcome to {{item}} ...! Ansible Rocks...!
+#       dest: /etc/motd
+#     with_items:
+#         - CentOS
+#         - Ubuntu
+#     when: ansible_distribution == item
+
+
+# - hosts: linux 
+
+  # tasks:
+  # - user:
+  #     name: "{{item.key}}"
+  #     comment: "{{item.value.fullname}}"
+  #     state: absent
+  #   with_dict:
+  #     sushovan:
+  #       fullname: sushovan palo
+  #     soham:
+  #       fullname: soham mukherjee
+
+
+# - hosts: linux
+
+  # tasks:
+  # - user:
+  #     name: "{{item.1}}"
+  #     comment: "{{item.1}}  {{item.0.proj_name}}"
+  #     state: absent
+  #   with_subelements:
+  #     - project:
+  #         proj_name: FCR
+  #         members:
+  #           - sushovan
+  #           - soham
+  #     - members
+
+
+# - hosts: linux
+
+#   tasks:
+#   - user:
+#       name: "{{item.1}}"
+#       comment: "{{item.1 | title }}  {{item.0.proj_name}}"
+#       state: present
+#     with_subelements:
+#       - 
+#           - proj_name: FCR
+#             members:
+#               - sushovan
+#               - soham
+#           - proj_name: TT
+#             members:
+#               - venkat
+#       - members
+
+
+# - hosts: linux
+
+#   tasks:
+#   - user:
+#       name: "{{item.1}}"
+#       comment: "{{item.1 | title }}  {{item.0.proj_name}}"
+#       state: present
+#       password: "{{lookup('password','passfile length=15 chars=ascii_alphabets,digits,hexdigits,punctuation') | password_hash('sha512','mysecretsalt') }}"
+#     with_subelements:
+#       - 
+#           - proj_name: FCR
+#             members:
+#               - sushovan
+#               - soham
+#           - proj_name: TT
+#             members:
+#               - venkat
+#       - members
+
+# - hosts: linux
+
+#   tasks:
+#   - file:
+#         path: "/home/{{item.0}}/{{item.1}}"
+#         owner: "{{item.0}}"
+#         group: "{{item.0}}"
+#         state: directory
+#     with_nested:
+#         - ["sushovan","soham"]
+#         - ["machine-connector","code-fcr"]
+
+# - hosts: linux
+
+#   tasks:
+#   - file:
+#         path: "/home/{{item.0}}/{{item.1}}"
+#         owner: "{{item.0}}"
+#         group: "{{item.0}}"
+#         state: directory
+#     with_together:
+#         - 
+#           - sushovan
+#           - soham
+#         -
+#           - ownership
+#           - innovation
+
+        # - ["sushovan","venkat"]
+        # - ["aiops","tt"]
+
+
+# - hosts: linux
+
+#   tasks:
+#   - set_fact:
+#       all_pub: "{{item}}"
+#     with_file:
+#       - /home/ansible/.ssh/id_rsa.pub
+#       - ./custom_key.pub
+#   - authorized_key:
+#       user: "{{item}}"
+#       key : "{{all_pub}}"
+#     with_items:
+#       - soham
+#       - venkat
+
+
+# using the with_sequence in this case 
+
+# - hosts: linux
+
+#   tasks:
+#   - file:
+#       path: "/home/sushovan/{{item}}"
+#       owner: sushovan
+#       group: sushovan
+#       state: directory
+#     with_sequence: start=0 end=100 stride=10
+
+
+# - hosts: linux
+
+#   tasks:
+#   - file:
+#       path: "{{item}}"
+#       owner: soham
+#       group: soham
+#       state: directory
+#     with_sequence: count=4 format=/home/soham/count_sequence_%x
+
+
+# - hosts: linux
+
+#   tasks:
+#   - file:
+#       path: "/home/venkat/{{item}}"
+#       owner: venkat
+#       group: venkat
+#       state: directory
+#     with_random_choice:
+#       - google
+#       - facebook
+#       - microsoft
+#       - apple
+
+
+- hosts: ubuntu
+
+  tasks:
+  - name: Checking for Until Usage
+    script: random.sh
+    register: result
+    retries: 100
+    until: result.stdout | int == 7
+    delay: 1
+  
+  - debug:
+      msg: "{{result.stdout}}"
+
+
+
+
+...

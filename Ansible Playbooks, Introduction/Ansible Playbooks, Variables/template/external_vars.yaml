@@ -1,0 +1,17 @@
+
+example_key: example_value
+
+example_dict_recomended:
+  dict_example_key: dict_example_value
+
+example_dict_inline_key: {dict_example_key_inline: dict_example_value_inline}
+
+example_list_recomeded:
+- item1
+- item2
+- item3
+- item4
+- item5
+
+example_list_inline: [item1, item2, item3, item4, item5]
+

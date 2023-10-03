@@ -1,0 +1,107 @@
+---
+
+- hosts: linux
+
+  vars:
+    example_key: 8
+
+  tasks:
+    - name: fetching the hostname of the target host in short form using command module
+      command: hostname -s
+      register: hostname_output # here we are using the regiser ption to register the output 
+      when: 
+        - ansible_distribution == "CentOS" 
+        - ansible_distribution_major_version | int >= 8
+
+    - name: grabing the register variable using the debug module 01
+      debug: # using the debug module
+        var: hostname_output # outputing the registed output
+      when: hostname_output is skipped # this will provide the value as the True hence the debug can show that info
+
+    # - name: grabing the register variable using the debug module 01
+    #   debug: # using the debug module
+    #     var: hostname_output # outputing the registed output
+    #   when: hostname_output.get('skipped') # this will provide the value as the True hence the debug can show that info
+
+    
+    # - name: grabing the register variable using the debug module 01
+    #   package: # using the package module in here 
+    #     name: patch # installing the patch package in here
+    #     state: present #defining the sate as present tom install the package
+    #   when: not(hostname_output.skipped) # this will provide the value as the True hence the debug can show that info
+
+    # - name: grabing the register variable using the debug module 01
+    #   package: # using the package module in here 
+    #     name: patch # installing the patch package in here
+    #     state: present #defining the sate as present tom install the package
+    #   when: hostname_output.changed # this will provide the value as the True hence the debug can show that info
+
+      # using the when directive without JINJA2 templating and with `and` condition as well
+
+    # - name: grabing the register variable using the debug module 
+    #   debug: # using the debug module in here 
+    #     var: hostname_output.stdout
+    #   when:  hostname_output.changed
+        # the var attribute is mutually exclusive with the msg attribute
+        # also we can use the `var` directly without the JINJA2 templating as its been in built to it  
+
+    # - name: grabing the register variable using the debug module 02
+    #   debug: # using the debug module in here 
+    #     var: hostname_output.stdout # accessing the stdout key of the registered output
+    #     # the var attribute is mutually exclusive with the msg attribute
+    #     # also we can use the `var` directly without the JINJA2 templating as its been in built to it  
+    #   when:  not (hostname_output.changed) # this will provide the value as the False which is not changed or skipped one hence the debug can show that info
+
+  # tasks:
+  #   - name: Checking the Hostname with refister option
+  #     command: hostname -s
+  #     register: hostname_output # here we are using the regiser ption to register the output 
+  #     when: (ansible_distribution == "CentOS" and ansible_distribution_major_version | int >= 8 and example_key==8) or 
+  #           (ansible_distribution=="Ubuntu" and ansible_distribution_major_version | int >=22 and example_key==8)
+
+
+  # tasks:
+  #   - name: Checking the Hostname with refister option
+  #     command: hostname -s
+  #     register: hostname_output # here we are using the regiser ption to register the output 
+  #     when: 
+  #       - ansible_distribution == "CentOS"
+  #       - ansible_distribution_major_version| int >=8
+
+  # tasks:
+  #   - name: Installing the Patch Package for centos 
+  #     package:
+  #       name: patch
+  #       state: present
+  #     register: package_installed # here we are using the regiser ption to register the output 
+  #     when: 
+  #       - ansible_distribution == "CentOS"
+  #       - ansible_distribution_major_version| int >=8
+
+    # - name: Debugging the info out in here 
+    #   debug:
+    #     var: package_installed
+    #   when: package_installed.changed
+
+    # - name: Debugging the info out in here for changed value
+    #   debug:
+    #     var: package_installed
+    #   when: package_installed is changed # we can use the true and false vvalue with the is as well here we just have to mentioned as <register> is <attribute value where T/F>
+
+    # - name: Debugging the info out in here for skipped value
+    #   debug:
+    #     var: package_installed
+    #   when: package_installed is skipped # we can use the true and false vvalue with the is as well here we just have to mentioned as <register> is <attribute value where T/F>
+
+    # - name: Installing only when the package not there using the skip option
+    #   package:
+    #     name: patch
+    #     state: present
+    #   when: package_installed is skipped # we can use the true and false vvalue with the is as well here we just have to mentioned as <register> is <attribute value where T/F>  
+
+    # - name: Printing value for All
+    #   debug:
+    #     var: package_installed
+    
+
+...

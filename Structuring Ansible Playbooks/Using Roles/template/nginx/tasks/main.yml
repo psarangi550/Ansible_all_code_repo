@@ -1,0 +1,25 @@
+# tasks file for nginx
+
+- name: Install EPEL
+  yum:
+    name: epel-release
+    update_cache: true
+    state: latest
+  when: ansible_distribution == "CentOS"
+  tags:
+  - install-epel
+
+- name: Install Nginx
+  package:
+    name: nginx
+    state: latest
+  tags:
+  - install-nginx
+
+- name: Restart Nginx
+  service:
+    name: nginx
+    state: restarted
+  tags:
+  - restart-nginx
+  notify: check HTTP Service

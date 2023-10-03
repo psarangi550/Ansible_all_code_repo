@@ -1,0 +1,245 @@
+# ---
+
+# # - hosts: ubuntu-c
+
+# #   tasks:
+# #     - name : creating the Private Public and Public Key in here 
+# #       openssh_keypair:
+# #         path: ~/.ssh/ubuntu3_id_rsa 
+# #         regenerate: partial_idempotence
+
+# # - hosts: linux
+# #   gather_facts: False
+  
+# #   tasks:
+# #     - name: copying the ssh file from the control host to destination target hosts
+# #       copy:
+# #         owner: root
+# #         src: "{{item.1}}"
+# #         dest: "{{item.1}}"
+# #         mode: "{{item.0.file_mode}}"
+# #       with_subelements:
+# #         -
+# #           - file_mode: "0600"
+# #             members: [ ~/.ssh/ubuntu3_id_rsa ]
+          
+# #           - file_mode: "0644"
+# #             members: [ ~/.ssh/ubuntu3_id_rsa.pub ]
+          
+# #         - members
+
+# # - hosts: ubuntu2
+
+# #   tasks:
+# #     - name: authorizing the root user public to the authorized key
+# #       authorized_key:
+# #         user: root 
+# #         state: present 
+# #         key: "{{item}}"
+# #       with_file:
+# #         - ~/.ssh/ubuntu3_id_rsa.pub
+  
+# # - hosts: all
+
+# #   tasks:
+# #     - name: conect to the ubuntu2 machine using the ssh command 
+# #       command: ssh -i ~/.ssh/ubuntu3_id_rsa -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@ubuntu2 date
+# #       changed_when: False # making sure always changes will not be displayed , if ssh successful ssh connection return the result in green 
+# #       ignore_errors: True 
+
+
+
+
+
+# - hosts: ubuntu-c # here we are targeting the ubuntu-c ansible control hosts
+  
+#   tasks:
+#   - name : Generating a SSH Key pair using the openssh_keypair module 
+#     openssh_keypair: # using the openssh_keypair module in here 
+#         path: ~/.ssh/ubuntu3-id-rsa # generating both the private and publick key withis the name mentioned in path 
+
+
+# # another play over here
+# - hosts: linux # targeting the linux target host in here 
+#   tasks:
+#   - name: Copying the ssh keypair  to the target host in the same folder 
+#     copy: # using the  copy module in here 
+#         owner: root # here specifying the owner for the same which has the access to the privat eand public keypair
+#         src: "{{item.0}}"
+#         dest: "{{item.0}}"
+#         mode: "{{item.1}}"
+#     with_together: # using the with_together loop in  here which will be taking the set of pair as mentioned in the list
+#         - [~/.ssh/ubuntu3-id-rsa, ~/.ssh/ubuntu3-id-rsa.pub ]
+#         - ["0600","0644"]
+
+
+# # now here we are defining another play in here as 
+# - hosts: ubuntu3 #using the ubuntu3 host here
+#   tasks:
+#   - name: accessing the public key and adding to the authorized_keys folder using authorized_key module for the root user
+#     authorized_key:
+#         user: root # here adding the root user to the autorized key
+#         key: "{{lookup('file','~/.ssh/ubuntu3-id-rsa.pub')}}"
+#         # reading the content from the ~/.ssh/ubuntu3-id-rsa.pub folder and using it as the key and adding the root user to it 
+
+# # here we are using the another play to execute the ssh command using the command module on all target hosts
+# - hosts: all # here the target ost being all target group
+#   tasks:
+#     - name: executing the ssh command over the all the target host over here 
+#       command : ssh -i ~/.ssh/ubuntu3-id-rsa -o BatchMode=yes -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@ubuntu3 date  # here using date cmd
+#       changed_when: False #setting the change false as the False to see the green output on sucessful connection
+#       ignore_errors: True # ignoring theerror happening while using the task 
+
+# - hosts: 
+#     - ubuntu-c
+#     - centos1
+#     - ubuntu1
+#   tasks:
+#     - name: deligating to the ubuntu3 target host to usethe ansible_facts from the target host and add to the ubuntu3 /etc/host.allow file 
+#       lineinfile: #using the lineinfile module to add the line to the /etc/hosts.allow file
+#         path: /etc/hosts.allow
+#         line: "sshd: {{ansible_hostname}}.diveinto.io " # this will add the line to the file
+#       delegate_to: ubuntu3 # deligating the task to ubuntu3 to perform this action 
+
+# # here we are using the another play to execute the ssh command using the command module on all target hosts
+# - hosts: all # here the target ost being all target group
+#   tasks:
+#     - name: executing the ssh command over the all the target host over here 
+#       command : ssh -i ~/.ssh/ubuntu3-id-rsa -o BatchMode=yes -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@ubuntu3 date  # here using date cmd
+#       changed_when: False #setting the change false as the False to see the green output on sucessful connection
+#       ignore_errors: True # ignoring theerror happening while using the task 
+
+
+# # here we are adding a /etc/hosts.deny file to deny the all the hosts which are novt available in the /etc/hosts.allow file  
+
+# - hosts: ubuntu3
+#   tasks:
+#   - name: adding a host.deny to the ubuntu3 host to deny all the hosts which are not there in the hosts.allow file 
+#     lineinfile:
+#       path: /etc/hosts.deny
+#       line: "sshd: ALL"
+#       state: present 
+
+# - hosts: all
+  
+#   tasks:  #here we are trying to connect to the ssh using the ssh on the command module 
+#   - name: accessing the SSH key using the command module 
+#     command: ssh -i ~/.ssh/ubuntu3-id-rsa -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@ubuntu3 date
+#     changed_when: False
+#     ignore_errors: True
+
+
+# - hosts: ubuntu-c,centos1,ubuntu1
+#   tasks:
+#   - name: here we are adding the step to undo the chages that we have done to the /etc/host.allow
+#     lineinfile:
+#       path: /etc/hosts.allow
+#       line: "sshd: {{ansible_hostname}}.diveinto.io "
+#       state: absent
+#     delegate_to: ubuntu3 # here we are asking the ubuntu3 machine to collect the ansible_facts from the ubuntu-c,centos1,ubuntu1 and remove the entry from file /etc/hosts.allow 
+
+# - hosts: ubuntu3
+#   tasks:
+#   - name: here we are adding the step to undo the chages that we have done to the /etc/host.deny
+#     lineinfile:
+#       path: /etc/hosts.deny
+#       line: "sshd: ALL"
+#       state: absent 
+      
+
+- hosts: ubuntu-c # here we are targeting the ubuntu-c ansible control hosts
+              
+  tasks:
+  - name : Generating a SSH Key pair using the openssh_keypair module 
+    openssh_keypair: # using the openssh_keypair module in here 
+        path: ~/.ssh/ubuntu3-id-rsa # generating both the private and publick key withis the name mentioned in path 
+
+
+# another play over here
+- hosts: linux # targeting the linux target host in here 
+  tasks:
+  - name: Copying the ssh keypair  to the target host in the same folder 
+    copy: # using the  copy module in here 
+        owner: root # here specifying the owner for the same which has the access to the privat eand public keypair
+        src: "{{item.0}}"
+        dest: "{{item.0}}"
+        mode: "{{item.1}}"
+    with_together: # using the with_together loop in  here which will be taking the set of pair as mentioned in the list
+        - [~/.ssh/ubuntu3-id-rsa, ~/.ssh/ubuntu3-id-rsa.pub ]
+        - ["0600","0644"]
+
+
+# now here we are defining another play in here as 
+- hosts: ubuntu3 #using the ubuntu3 host here
+  tasks:
+  - name: accessing the public key and adding to the authorized_keys folder using authorized_key module for the root user
+    authorized_key:
+        user: root # here adding the root user to the autorized key
+        key: "{{lookup('file','~/.ssh/ubuntu3-id-rsa.pub')}}"
+        # reading the content from the ~/.ssh/ubuntu3-id-rsa.pub folder and using it as the key and adding the root user to it 
+
+# here we are using the another play to execute the ssh command using the command module on all target hosts
+- hosts: all # here the target ost being all target group
+  tasks:
+    - name: executing the ssh command over the all the target host over here 
+      command : ssh -i ~/.ssh/ubuntu3-id-rsa -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@ubuntu3 date
+      changed_when: False #setting the change false as the False to see the green output on sucessful connection
+      ignore_errors : True # ignoring theerror happening while using the task
+
+- hosts:  # here we re targeting target host as list of host of ubuntu-c , centos1 , ubuntu1
+    - ubuntu-c
+    - centos1
+    - ubuntu1
+  tasks:
+    - name: Adding the entry to the /etc/hosts.allow file of the ubuntu3 deligated target host with the ansible facts collected from ubuntu-c , centos1 , ubuntu1
+      lineinfile: # using the line in file module in here 
+        path: /etc/hosts.allow # which file we want to modify we have mentioned that
+        line: "sshd: {{ansible_hostname}}.diveinto.io" # here with the line we are stating which line we want to add to the /etc/hosts.allow
+        state: present # line will be going to get added or replaced 
+      delegate_to: ubuntu3 # here we are stating to ececute the task on the ubuntu3 deligated host using the ansible_facts that we collected from target host in hosts section 
+
+- hosts: all
+  tasks:  #here we are trying to connect to the ssh using the ssh on the command module 
+  - name: accessing the SSH key using the command module 
+    command: ssh -i ~/.ssh/ubuntu3-id-rsa -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@ubuntu3 date
+    changed_when: False
+    ignore_errors: True
+
+# here now adding another play to restrict the rest of the target host which are not listed in /etc/hosts.allow file using the hosts,deny file using the lineinfile  module 
+- hosts: ubuntu3 # here we re targeting target of ubuntu3 as don't hve to gather any ansible artifacts from  rest of the hosts
+  tasks:
+    - name: Adding the entry to the /etc/hosts.deby file of the ubuntu3 deligated target host to restreict the rest of the connection 
+      lineinfile: # using the line in file module in here 
+        path: /etc/hosts.deny # which file we want to modify we have mentioned that
+        line: "sshd: ALL" # here with the line we are stating which line we want to add to the /etc/hosts.deny
+        state: present # line will be going to get added or replaced 
+
+# here we are checking the ssh connection again over here as below 
+# here we are using the another play to execute the ssh command using the command module on all target hosts
+- hosts: all # here the target ost being all target group
+  tasks:
+    - name: executing the ssh command over the all the target host over here 
+      command : ssh -i ~/.ssh/ubuntu3-id-rsa -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@ubuntu3 date
+      changed_when: False #setting the change false as the False to see the green output on sucessful connection
+      ignore_errors : True # ignoring theerror happening while using the task 
+
+# here we will be adding one more play to remove the line from  the /etc/hosts.allow in ubuntu3 hosts
+- hosts: ubuntu-c,centos1,ubuntu1 # targeting the ubuntu-c,centos1,ubuntu1 as we ned to gather the ansible_facts
+  tasks:  
+    - name: definingthe task to use the lineinfile module to remove the line from the /etc/hosts.allow file 
+      lineinfile:  # using the lineinfile module
+        path: /etc/hosts.allow
+        line: "sshd: {{ansible_hostname}}.diveinto.io"
+        state: absent #mentioning the state as absent which is remove the entry if the line found
+      delegate_to: ubuntu3
+
+# here we will be executing aginst the ubuntu3 host as we don't need any other info from any other hosts
+- hosts: ubuntu3 # targeting the ubuntu-c,centos1,ubuntu1 as we ned to gather the ansible_facts
+  tasks:  
+    - name: definingthe task to use the lineinfile module to remove the line from the /etc/hosts.allow file 
+      lineinfile:  # using the lineinfile module
+        path: /etc/hosts.deny #targeting the deny file in here 
+        line: "sshd: ALL" # target the content which need to be removed 
+        state: absent #mentioning the state as absent which is remove the entry if the line found
+
+# ...

@@ -1,0 +1,29 @@
+---
+
+- hosts: centos3,ubuntu3
+
+  tasks:
+    - name : Restart Nginx
+      service:
+        name: nginx # mentioning the nginx serciviuce in here 
+        state: restarted
+  
+  # tasks:
+  #   - name: wait for the Target path available
+  #     wait_for:
+  #       path: /var/www/html
+  #       state: present
+  #     when: ansible_distribution == "Ubuntu"
+
+  #   - name: wait for the Target path available
+  #     wait_for:
+  #       path: /usr/share/nginx/html
+  #       state: present
+  #     when: ansible_distribution == "CentOS"
+
+    - name: waiting for the Port to be available 
+      wait_for:
+        port: 80
+
+
+...

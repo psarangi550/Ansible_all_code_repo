@@ -1,0 +1,53 @@
+---
+
+- hosts: all
+
+  tasks:
+    - name: Crating the Playbook in multiple Hosts
+      file:
+        path: /home/ansible/facts.d
+        state: directory
+        recurse: True # we can provide recuirese True to make the directory inside
+
+    - name: Using Copy Module To Copy the file from local to remote01
+      copy:
+        src: getdate.fact
+        dest: /home/ansible/facts.d
+        mode: preserve 
+    
+    - name: Using Copy Module To Copy the file from local to remote02
+      copy:
+        src: getdate2.fact
+        dest: /home/ansible/facts.d
+        mode: preserve
+
+    - name: Refresh the Facts
+      setup: # here only providing the setup module which will run during the playbook execution like the adhoc command and custom facts will be added to the ansible_facts   
+        fact_path: /home/ansible/facts.d
+
+    - name: Handling the Custom facts playbook01
+      debug:
+        msg: "{{ansible_local}}"
+    
+    - name: Handling the Custom facts playbook02
+      debug:
+        msg: "{{ansible_local.getdate.date}}"
+
+    - name: Handling the Custom facts playbook03
+      debug:
+        msg: "{{ansible_local.getdate2.date.date}}"
+
+    - name: Handling the Normal Facts playbook04
+      debug:
+        msg: "{{ansible_default_ipv4.address}}"
+
+    - name: Handling the Custom facts playbook05
+      debug:
+        msg: "{{hostvars[ansible_hostname].ansible_local.getdate.date}}"
+
+    - name: Handling the Custom facts playbook06
+      debug:
+        msg: "{{hostvars[ansible_hostname].ansible_local.getdate2.date.date}}"
+
+
+...

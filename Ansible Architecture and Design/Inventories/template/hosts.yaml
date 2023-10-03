@@ -1,0 +1,36 @@
+---
+control:
+  hosts:
+    ununtu-c:
+        ansible_connection: local
+
+centos:
+  hosts:
+    centos1:
+      ansible_port : 2222
+    centos2:
+    centos3:
+  vars:
+    ansible_user=root
+
+ubuntu:
+  hosts:
+    ubuntu1:
+    ubuntu2:
+    ubuntu3:
+  vars:
+    ansible_become: true
+    ansible_become_password: password
+
+linux:
+  children:
+    ubuntu:
+    centos:
+
+all:
+  vars:
+    ansible_port: 22
+
+
+
+...

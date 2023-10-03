@@ -1,0 +1,21 @@
+---
+
+- hosts: ubuntu-c
+  
+  tasks:
+    - name: Adding New Host in here 
+      add_host:
+        name: centos3
+        # groups: adhoc_group1,adhoc_group2
+
+
+- 
+  #adding the 2nd host in here we can also define that on the same line of `-`
+  hosts: centos3
+
+  tasks:
+    - name: Using the Dynamically Added Hosts
+      ping:
+
+
+...

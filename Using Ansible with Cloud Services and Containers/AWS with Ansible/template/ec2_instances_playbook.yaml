@@ -1,0 +1,103 @@
+---
+
+- hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Using the AWS Security Group inbound rules to open ports
+      ec2_group:
+        name: ansible
+        description: creating an ansible security group in here 
+        region: ap-south-1
+        rules:
+          - proto: tcp
+            from_port: 80
+            to_port: 80
+            cidr_ip: 0.0.0.0/0
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            cidr_ip: 0.0.0.0/0
+
+    # - name: creating the ec2 instances based on the key_name and security group
+    #   ec2:
+    #     key_name: ansible
+    #     group: ansible
+    #     instance_type: t2.micro # here the instance_type:as t2.micro for free tier acccount
+    #     exact_count: 20  # how many instances we want to spin
+    #     image: ami-09d5aaa0b11e7e75d  # showing the image amiu reference for images
+    #     region: ap-south-1 # defining the region out in here 
+    #     wait: true # wait for the status which is by default as present 
+    #     count_tag:  # defining the tags
+    #       Name: AnsibleNginxWebservers # name against the tags
+    #     instance_tags:  # defining the tags
+    #       Name: Ansible # name against the tags
+    #   register: ec2  # registering the info out in here  
+
+    # - name: Provision a set of instances
+    #   amazon.aws.ec2_instance:
+    #     key_name: ansible
+    #     security_group: ansible
+    #     instance_type: t2.micro
+    #     image_id: ami-026ebd4cfe2c043b2
+    #     region: us-east-1
+    #     wait: true
+    #     exact_count: 20
+    #     state: present
+    #     tags:
+    #      instance_tags: Ansible
+    #      count_tags: AnsibleNginxWebservers
+    #   register: ec2
+
+    # - name: checking the Register outcome
+    #   debug: 
+    #     msg: "{{item.public_ip_address}}"
+    #   with_items:
+    #     - "{{ ec2.instances }}"
+
+    # - name: Add all instance public IPs to host group
+    #   add_host:
+    #     hostname: "{{item.public_ip_address }}"
+    #     groups: ansiblehosts
+    #   with_items: "{{ ec2.instances }}"
+
+    
+    # - name: Show group
+    #   debug:
+    #     var: groups.ansiblehosts
+
+
+    - name: checking the ec2 instances based on the tags
+      amazon.aws.ec2_instance_info:
+        region: us-east-1
+        filters:
+          "tag:instance_tags" : Ansible
+      register: ec2_instance_info
+
+
+# here the ec2 register will contain the list of instances as 
+#   {"ec2":
+#     "instances": [<listy of instances having the public_ip info >]
+#   }
+
+    - name: checking the Register outcome
+      debug: 
+        msg: "{{item.tags}}"
+      with_items:
+        - "{{ ec2_instance_info.instances }}"
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+...

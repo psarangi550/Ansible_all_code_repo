@@ -1,0 +1,34 @@
+---
+
+# - hosts: ubuntu
+
+#   tasks:
+#     - name: adding the Host to the Group based on the Key i.e deried from the facts
+#       group_by:
+#         key: cust_{{ ansible_hostname}}
+  
+
+# - hosts: cust_ubuntu1
+
+#   tasks:
+
+#     - name : using the host which been derived from the value of the key in the ansible_facts
+#       ping:
+
+- hosts: linux # using the linux target host in here 
+          
+  tasks: 
+    - name: using the Group by module to add host to the group based on the key of the ansible facts
+      group_by: # using the group by module
+        key: cust_{{ansible_distribution | lower }}  # here we are using he key args we are creating the group and addng the value of the ansible_distribution into ir
+
+        
+- hosts: cust_centos # here using the cust_centos which will be forming from the groupby_module and ansible group formed with name cust_centos and cust_ubuntu here using cust_centos 
+  
+  tasks: 
+    - name: using the created group herer host being added 
+      ping: #using the ping module in  here 
+
+
+
+...

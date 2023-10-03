@@ -1,0 +1,298 @@
+---
+- hosts: all
+  gather_facts: True # but when we set the ansible_hostname for soling the question of which host in order to get the ansible_port we need to make sure this gather_facts must be True else it will not work
+  # gather_facts: False # when we define the hostvars or ansible_user then in that case the gather_facts can set to False , but eill wotk if the gather_facts=True as well
+
+  # vars:
+
+  # example_key: example_value
+
+  # Case01:- here we are defining the dcitionary of dictionary in this case
+  # dict1:
+  #   dict_key: This is a Dcitionary Value
+
+  # Case02:-here we are using the inline dict notation
+  # dict_key:
+  #   {inline_key: inline_value}
+  # {inline_key: inline_value} # but this need to be defined on the 1st else the inline block will not work
+
+  # Case03:- we can also define the list of item as the value for the specified key
+  # example_list:
+  #   - item1
+  #   - item2
+  #   - item3
+  #   - item4
+
+  # Case04:- we can define the same for the inline list notation as well
+  # example_inline_list:
+  #   [item1,item2,item3,item4]
+
+  # Case06:- using the expternal File in here
+  # vars_files: # here using the external file for this case
+  # - external_vars.yaml
+
+  #Case07:- where it ask the user for the prompt , where Private=False aso the user input will be displayed in here
+  # vars_prompt:
+  #   - name: user
+  #     private: False
+
+  #Case08:- where it ask the user for the prompt , where Private=True aso the user input will not be displayed in here
+  # vars_prompt:
+  #   - name: password
+  #     private: True
+
+  tasks:
+    #result::-Case00
+
+    # - name: Showing Result to Screen on Debug Mode00
+    #   debug:
+    #     msg: "{{example_key}}"
+
+    #result::-Case01
+
+    # - name: Showing Result to Screen on Debug Mode02
+    #   debug:
+    #     msg: "{{dict1.dict_key}}"
+
+    # - name: Showing Result to Screen on Debug Mode03
+    #   debug:
+    #     msg: "{{dict1['dict_key']}}"
+
+    # - name: Showing Result to Screen on Debug Mode04
+    #   debug:
+    #     msg: "{{dict1}}"
+
+    #result::-Case02
+
+    # - name: Showing Result to Screen on Debug Mode05
+    #   debug:
+    #     msg: "{{inline_key}}"
+
+    #result::-Case03
+
+    # - name: Showing Result to Screen on Debug Mode06
+    #   debug:
+    #     msg: "{{example_list}}"
+
+    # - name: Showing Result to Screen on Debug Mode07
+    #   debug:
+    #     msg: "{{example_list[0]}}"
+
+    # - name: Showing Result to Screen on Debug Mode08
+    #   debug:
+    #     msg: "{{example_list.1}}"
+
+    #result::-Case04
+
+    # - name: Showing Result to Screen on Debug Mode09
+    #   debug:
+    #     msg: "{{example_inline_list}}"
+
+    # - name: Showing Result to Screen on Debug Mode10
+    #   debug:
+    #     msg: "{{example_inline_list.0}}"
+
+    # - name: Showing Result to Screen on Debug Mode11
+    #   debug:
+    #     msg: "{{example_inline_list[0]}}"
+
+    # result-Case05
+
+    # - name: Showing Result to Screen on Debug Mode12
+    #   debug:
+    #     msg: "{{example_key}}"
+
+    # - name: Showing Result to Screen on Debug Mode13
+    #   debug:
+    #     msg: "{{example_dict_recomended}}"
+
+    # - name: Showing Result to Screen on Debug Mode14
+    #   debug:
+    #     msg: "{{example_dict_recomended.dict_example_key}}"
+
+    # - name: Showing Result to Screen on Debug Mode15
+    #   debug:
+    #     msg: "{{example_dict_recomended}}"
+
+    # - name: Showing Result to Screen on Debug Mode16
+    #   debug:
+    #     msg: "{{example_dict_recomended['dict_example_key']}}"
+
+    # - name: Showing Result to Screen on Debug Mode17
+    #   debug:
+    #     msg: "{{example_dict_inline_key}}"
+
+    # - name: Showing Result to Screen on Debug Mode18
+    #   debug:
+    #     msg: "{{example_dict_inline_key.dict_example_key_inline}}"
+
+    # - name: Showing Result to Screen on Debug Mode19
+    #   debug:
+    #     msg: "{{example_dict_inline_key['dict_example_key_inline']}}"
+
+    # - name: Showing Result to Screen on Debug Mode20
+    #   debug:
+    #     msg: "{{example_list_recomeded}}"
+
+    # - name: Showing Result to Screen on Debug Mode21
+    #   debug:
+    #     msg: "{{example_list_recomeded[0]}}"
+
+    # - name: Showing Result to Screen on Debug Mode22
+    #   debug:
+    #     msg: "{{example_list_recomeded.0}}"
+
+    # - name: Showing Result to Screen on Debug Mode23
+    #   debug:
+    #     msg: "{{example_list_inline}}"
+
+    # - name: Showing Result to Screen on Debug Mode24
+    #   debug:
+    #     msg: "{{example_list_inline[0]}}"
+
+    # - name: Showing Result to Screen on Debug Mode25
+    #   debug:
+    #     msg: "{{example_list_inline.0}}"
+
+    # result-Case07
+
+    # - name: Showing Result to Screen on Debug Mode26
+    #   debug:
+    #     msg: "{{user}}"
+
+    # result-Case07
+    # - name: Showing Result to Screen on Debug Mode27
+    #   debug:
+    #     msg: "{{password}}"
+
+    # result::-Case08
+    # - name: Showing Result to Screen on Debug Mode28
+    #   debug:
+    #     msg: "{{hostvars[ansible_hostname]['ansible_port']}}"
+    #   when: ansible_hostname == "centos1"
+
+    # - name: Showing Result to Screen on Debug Mode28
+    #   debug:
+    #     msg: "{{hostvars[ansible_hostname].ansible_port}}"
+    #   when: ansible_hostname == "centos1"
+
+    # result::-Case09
+    # - name: Showing Result to Screen on Debug Mode29
+    #   debug:
+    #     msg: "{{hostvars[ansible_hostname]['ansible_port']| default('22')}}"
+
+    # - name: Showing Result to Screen on Debug Mode30
+    #   debug:
+    #     msg: "{{hostvars[ansible_hostname]['ansible_port']| default('22')}}"
+
+    #here we are using the ansible_user as groupvars from the hostvars section as the groupvars stored as hostvars
+    # # result::-Case10
+    # - name: Showing Result to Screen on Debug Mode31
+    #   debug:
+    #     msg: "{{ansible_user | default('ansible')}}"
+
+    # here we are accessing the ansible_become groupvars directlty with the default value
+    # - name: Showing Result to Screen on Debug Mode32
+    #   debug:
+    #     msg: "{{ansible_become | default('direct root connection')}}"
+
+    # we can access the ansible_become from the hostsvars as the (groupvars are also saved as the hostvars)
+    # result:Case11
+    # - name: Showing Result to Screen on Debug Mode32
+    #   debug:
+    #     msg: "{{hostvars[ansible_hostname]['ansible_become']}}"
+    #   when: ansible_distribution == "Ubuntu"
+
+    # we can access the ansible_become using the direct approach
+    # #result:Case12
+    # - name: Showing Result to Screen on Debug Mode32
+    #   debug:
+    #     msg: "{{ansible_become | default(False)}}"
+
+    # we can also access the ansible_user from the ansible_hostname as  the groupvars saved as the hostsvars in the hostvars section
+    # #result:Case13
+    # - name: Showing Result to Screen on Debug Mode33
+    #   debug:
+    #     msg: "{{hostvars[ansible_hostname].ansible_user | default('sudo')}}"
+
+    #result:Case14
+    # here we are passing the value of the extra_var_keys from the terminal with -e or --extra-var option which will be key=value format which is more of a ini format
+    # - name: Showing Result to Screen on Debug Mode34
+    #   debug:
+    #     msg: "{{extra_var_keys}}"
+
+    #result:Case15
+    # here we can also provide the -e  or --extra-var with as a JSON format where we can define the key:value pair as -e '{"key": "value"}' like a JSON format
+    # also rememmber to put up a space between the `key:` and `value` while define through the JSON 
+    # - name: Showing Result to Screen on Debug Mode35
+    #   debug:
+    #     msg: "{{ extra_vars_key }}"
+
+    # result:Case16
+    # here we can also provide the -e  or --extra-var with as a YAML format like inline block of dict or inline list where we can define the key:value pair as -e '{key: value}' like a YAML format
+    # also rememmber to put up a space between the `key:` and `value` while define through the YAML
+    # - name: Showing Result to Screen on Debug Mode36
+    #   debug:
+    #     msg: "{{ extra_vars_key }}"
+
+    #result:Case17
+    # we can also use the extra variable with --e or --extra-var for a file which is in YAML format 
+    # but while providing the file name we need to prepend the file name with the @ symbol before as `-e @<YAML File Name>`
+    # but pior to that we need to create the YAML file 
+    # hence we can use this as below
+    # we can do that as below
+    # - name: Showing Result to Screen on Debug Mode37
+    #   debug:
+    #     msg: "{{ extra_vars_key }}"
+
+
+    #result:Case18
+    # we can also use the extra variable with --e or --extra-var for a file which is in JSON format 
+    # but while providing the file name we need to prepend the file name with the @ symbol before as `-e @<JSON File Name>`
+    # but pior to that we need to create the JSON file 
+    # hence we can use this as below
+    # we can do that as below
+    # - name: Showing Result to Screen on Debug Mode38
+    #   debug:
+    #     msg: "{{ extra_vars_key }}"
+
+    # result:Case19
+    # here its been picking the ansible_user groupvars from the group_vars/<corresponding host which will be in the format of YAML>
+    # here also we can remote the group variable from the host file or inventory it will still going to work
+    # we have to define the folder in the strucre that group_vars/<hostname where we want to provide the group vars which will be in YAML format>
+    # - name: Showing Result to Screen on Debug Mode39
+    #   debug:
+    #     msg: "{{ ansible_user}}"
+    #   when: ansible_distribution != "Ubuntu"
+
+    # result:Case20
+    # here its been picking the ansible_user hostvars from the host_vars/<corresponding host which will be in the format of YAML>
+    # here also we can remote the host variable from the host file or inventory it will still going to work
+    # we have to define the folder in the strucre that host_vars/<hostname where we want to provide the group vars which will be in YAML format>
+    # - name: Showing Result to Screen on Debug Mode40
+    #   debug:
+    #     msg: "{{ ansible_connection }}"
+    #   when: ansible_hostname == "ubuntu-c"
+
+    # # result:Case21
+    # # here its been picking the ansible_user hostvars from the host_vars/<corresponding host which will be in the format of YAML>
+    # # here also we can remote the host variable from the host file or inventory it will still going to work
+    # # we have to define the folder in the strucre that host_vars/<hostname where we want to provide the group vars which will be in YAML format>
+    # # alternative we can get the result as this as well
+    # - name: Showing Result to Screen on Debug Mode41
+    #   debug:
+    #     msg: "{{ hostvars[ansible_hostname].ansible_connection }}"
+    #   when: ansible_hostname == "ubuntu-c"
+
+    #result:Case22
+    # here its been picking the ansible_user groupvars from the group_vars/<corresponding host which will be in the format of YAML>
+    # here also we can remote the group variable from the host file or inventory it will still going to work
+    # we have to define the folder in the strucre that group_vars/<hostname where we want to provide the group vars which will be in YAML format>
+    # # alternative we can get the result as this as well
+    - name: Showing Result to Screen on Debug Mode41
+      debug:
+        msg: "{{ hostvars[ansible_hostname].ansible_user }}"
+      when: ansible_distribution == "CentOS"
+
+...
+

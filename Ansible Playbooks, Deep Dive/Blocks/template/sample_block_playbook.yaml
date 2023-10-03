@@ -1,0 +1,86 @@
+---
+
+# - hosts: linux # defining the linux host in here 
+
+  # tasks:   #defining the task inside which we need to define the blocks in here     
+  #   - name: Defining the tasks with the usage of block as well 
+
+  #     block:   # defining the block declarative derivate in here to define blocks
+        
+  #       - name: block contains list of tasks which need to be get executed but name can only be used with ansible2.3 01
+  #         debug:  # using the debug module in here
+  #           msg: Example 1 with Block
+
+  #       - name: block contains list of tasks which need to be get executed but name can only be used with ansible2.3 02
+  #         debug:  # using the debug module to print the message agianst all the hosts
+  #           msg: Example 2 with Block
+
+  #       - name: block contains list of tasks which need to be get executed but name can only be used with ansible2.3 03
+  #         debug:  # using the debug module to print the message agianst all the hosts
+  #           msg: Example 3 with Block
+
+
+# - hosts: linux # defining the linux host in here 
+
+#   tasks:   #defining the task inside which we need to define the blocks in here     
+#     - name: Defining the tasks with the usage of block as well 
+
+#       block:   # defining the block declarative derivate in here to define blocks
+        
+#         - name: block contains list of tasks which need to be get executed but name can only be used with ansible2.3 centos
+#           debug:  # using the debug module in here
+#             msg: Example 1 with Block for CentOS hosts
+#           when: ansible_distribution == "CentOS" # using the when declarative directive in here with condition
+
+#         - name: block contains list of tasks which need to be get executed but name can only be used with ansible2.3 ubuntu
+#           debug:  # usingthe debug module to print the message agianst all the hosts
+#             msg: Example 2 with Block for Ubuntu hosts
+#           when: ansible_distribution == "Ubuntu" # using the when declarative directive in here with condition 
+
+#         - name: block contains list of tasks which need to be get executed but name can only be used with ansible2.3 ubuntu using the loops
+#           debug:  # usingthe debug module to print the message agianst all the hosts
+#             msg: Here the Example with {{item}}
+#           with_items:       # using the with_items loop in here where each value will be considered againbst all the target hosts total 18 result
+#             - x
+#             - y
+#             - z
+
+
+
+- hosts: linux # defining the linux host in here 
+
+  tasks:   #defining the task inside which we need to define the blocks in here     
+    - name: Defining the tasks with the usage of block as well 
+
+      block:   # defining the block declarative derivate in here to define blocks
+        
+        - name: installing the patch package here 
+          package:  # using the package module in here 
+            name: patch  # using the patch module in this case 
+            state: latest  # using the latest version of the software
+
+        - name: installing the python-dnspython module in here 
+          package:  # using the package module in here 
+            name: python-dnspython
+            state: latest  # using the latest version of the software
+      
+      rescue:    #defining the reuse block in here 
+
+        - name: removing the patch module in case of error 
+          package:   # using the package module in here 
+            name: patch   # remove the patch module in here
+            state: absent  # using the state as absent in here 
+
+        - name: removing the python-dnspython module in case of error  
+          package:   # using the package module in here 
+            name: python-dnspython   # remove the patch module in here
+            state: absent  # using the state as absent in here 
+
+      always:
+        - name: this blcok will be execute no matter what 
+          debug: # using the debug module in here 
+            msg: Run no matter what like the finally block
+
+
+
+...

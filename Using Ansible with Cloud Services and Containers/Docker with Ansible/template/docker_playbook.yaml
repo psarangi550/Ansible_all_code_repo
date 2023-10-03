@@ -1,0 +1,216 @@
+---
+
+# - hosts: ubuntu-c # here we are targeting the ansible host
+
+#   tasks:
+
+#     - name: coping the index to the /shared/index.html file 
+#       copy: 
+#         src: index.html 
+#         dest: /shared/index.html
+
+#     - name: copying the content to /shared/Dockerfile we need to create using the COPY module 
+#       copy: 
+#         dest: /shared/Dockerfile    # location of the dockerfile mentioned in here
+#         content: |
+#                   FROM nginx
+#                   COPY index.html  /usr/share/nginx/html/index.html
+          
+
+#     - name: here creating the custom docker image using the docker_image module in here 
+#       docker_image:
+#         docker_host: tcp://docker:2375
+#         name: mynginx:latest
+#         source: build
+#         state: present
+#         build:  #defining the build dict over here
+#           path: /shared/
+#           pull: yes
+#         force_source: yes
+
+#     - name: creating the docker container from the custome docker images
+#       docker_container:
+#         docker_host: tcp://docker:2375
+#         name: "nginx{{item}}"
+#         image: mynginx:latest
+#         state: started
+#         recreate: yes
+#         ports:
+#           - "900{{item}}:80"
+#       with_sequence: 1-3
+
+- hosts: ubuntu-c # here we are targeting the ansible host
+
+  tasks:
+    
+  - name: installing the image for python:3.10-slim image
+    docker_image:
+      docker_host: tcp://docker:2375 # using the remote docker host in here
+      name: python:3.8.5  # using the python:3.10-slim image
+      source: pull # pulling if not available 
+      state: present # excpecting the image be poresent
+
+  - name: creating multiple pythjjon image with the name as python1/python2/python3
+    docker_container: # usig the docker_container module
+      docker_host: tcp://docker:2375 # using the remote docker host in here 
+      name: python{{item}} #  name of the container  
+      image: python:3.8.5 # image name
+      state: started # starting the container 
+      pull: yes # pulling if not found already
+      command: sleep infinity  # providing the command to run 
+    with_sequence: 1-2 # defining the sequence in here
+
+  - name: removing all the containers first 
+    docker_container:
+      docker_host: tcp://docker:2375 # using the remote docker host in here
+      name: python{{item}}
+      image: python:3.10-slim 
+      state: absent
+      force_kill: yes
+    with_sequence: 1-3
+
+  - name: removing the images in here 
+    docker_image:
+      docker_host: tcp://docker:2375 # using the remote docker host in here
+      name: python:3.10-slim # using the python:3.10-slim image
+      state: absent # excpecting the image be removed
+      force_absent: true
+
+# - hosts:  containers # defining the host as the container which will make sure that we have mentioned the same in the host file with the same name as container 
+#   gather_facts: False # ignoring the facts in here 
+
+#   tasks:
+#     - name: checking the ping to the running container 
+#       ping: # using the ping module  in here
+
+
+
+# - hosts: ubuntu-c
+#   connection: local
+
+#   tasks:
+#     - name: creting the docker images with docker_image module 
+#       community.docker.docker_image:
+#         docker_host: tcp://docker:2375
+#         name: "{{item}}"
+#         state: present
+#         source: pull
+#       with_items:
+#         - ubuntu
+#         - centos
+#         - redis
+#         - nginx
+
+#     - name: creating the container from the image that we have pulled 
+#       community.docker.docker_container:  # using the docker_container module in here 
+#         docker_host: tcp://docker:2375 # here we need to define the docker host on which the docker command been running 
+#         name: communitywebserver # defining the docker container name over here 
+#         image: redis:latest  # here defining the image name for the docker 
+#         state: started # state as present means image been expected to be there to create container if not present it will pull
+#         pull: yes # here the pull is yes if the image not present pull from the registry
+#         # container_default_behaviour: no_defaults  # no-defauls means use the default option if the options not provided already
+#         # restart: yes # using the recreate option if the image present then recreating will happen  
+
+    
+
+          
+    # - name: pulling the images in here using the docker_image module 
+    #   community.docker.docker_image:   # here using the docker_image module
+    #     docker_host: tcp://docker:2375 # here we need to define the docker host on which the docker command been running 
+    #     name: "{{item}}:latest" # defining the name of the image with the tags
+    #     source: pull   # mentioning the source as pull so pull from the registry 
+    #     state: present # mentionning the state is present means image been exected if not found then pull/build/load based on the option 
+    #     # container_default_behavior: no_defaults   # all the container should have the default version 
+    #   with_items: # defining the looping techineques
+    #     - centos 
+    #     - ubuntu
+    #     - nginx
+    #     - redis
+
+
+    # - name: creating the container from the image
+    #   community.docker.docker_container:
+    #     docker_host: tcp://docker:2375
+    #     image: nginx
+    #     name: nginx-container
+    #     state: started
+    #     ports:
+    #       - 8080:80
+    #     container_default_behavior: no_defaults
+    #     restart: yes
+
+
+    # creating the custom container by using the DockerFile
+
+    # - name: creating the custom image based on nginx
+    #   ansible.builtin.copy:
+    #     content: |
+    #            FROM nginx 
+    #     dest: /shared/Dockerfile
+    #     mode: 0755
+
+
+    # - name: Now using the Dockerfile to create the custom image
+    #   community.docker.docker_image:
+    #     docker_host: tcp://docker:2375
+    #     name: nginx-image:latest
+    #     state: present
+    #     source: build
+    #     build:
+    #       path: /shared/
+    #       pull: true
+    #     force_source: yes
+      
+        
+
+    # - name: crating the image out of the container
+    #   docker_container:
+    #     docker_host: tcp://docker:2375
+    #     name: "containerwebserver{{item}}"
+    #     image: nginx-image:latest
+    #     ports:
+    #       - "800{{item}}:80"
+    #     container_default_behavior: no_defaults
+    #     command: sleep infinity
+    #   with_sequence: 1-3
+
+
+#     - name: creating python images
+#       community.docker.docker_container:
+#         docker_host: tcp://docker:2375
+#         name: "python{{item}}"
+#         image: ubuntu
+#         container_default_behavior: no_defaults
+#         command: sleep infinity
+#         pull: true
+#       with_sequence: 1-3
+#       register: result
+
+#     - name: deugging the result
+#       ansible.builtin.debug:
+#         msg: "{{result}}"
+        
+
+# - hosts: containers
+#   gather_facts: False
+
+#   tasks:
+#   - name: checking the running container ping
+#     ping:
+
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+...

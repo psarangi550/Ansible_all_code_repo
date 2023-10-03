@@ -1,0 +1,20 @@
+---
+
+- hosts: centos1 # targeting the centos target host
+
+  tasks:
+
+    - name : executing the debug module 01
+      debug:  # using the debug mnodule in here
+        msg: Playbook Executed-Step 1
+
+    - name : executing the debug module 02
+      debug:  # using the debug mnodule in here
+        msg: Playbook Executed-Step 2
+
+
+
+
+
+
+...

@@ -1,0 +1,29 @@
+---
+
+- hosts: centos1
+
+  tasks:
+    - name: Reverse and upper ansible_distribution
+      debug: 
+        msg: "Reverse and upper of ansible_distribution: {{ ansible_distribution | return_upper }}"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+...

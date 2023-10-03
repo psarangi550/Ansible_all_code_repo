@@ -1,0 +1,22 @@
+# tasks file for webapp
+
+- name: Using the Template module in here
+  template:
+    src: index.html-easter_egg.j2
+    dest: "{{target_dir}}/index.html"
+    mode: 0644
+  tags:
+  - deploy-app
+
+
+- name: Install unzip module
+  package:
+    name: unzip
+    state: latest
+
+
+- name: Unzipping the file to the target location
+  unarchive:
+    src: playbook_stacker.zip
+    dest: "{{target_dir}}"
+    mode: 0755
